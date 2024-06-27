@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <form action="#">
+        <h1>Catálogo de Jogos: </h1>
+        <div>
+            <label for="">Nome: </label>
+            <input type="text">
+        </div>
+
+        <div>
+            <label for="">Preço: </label>
+            <input type="number">
+        </div>
+
+        <div>
+            <label for="">Views: </label>
+            <input type="number">
+        </div>
+
+        <div>
+            <input type="number">
+            <label for="">Compras: </label>
+        </div>
+
+        <div>
+            <input type="number">
+            <label for="">Desconto: </label>
+        </div>
+
+        <div class="range-input">
+            <label for="">Nota: </label>
+            <input type="range" step="0.5" min="1" max="5">
+            <p>1</p>
+        </div>
+
+        <select name="operacao" id="operacao">
+            <option value="">Selecione a Operação</option>
+            <option value="desconto">Calcular Preço com Desconto</option>
+            <option value="custo">Calcular Custo Benefício</option>
+            <option value="popularidade">Ver Popularidade</option>
+        </select>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
