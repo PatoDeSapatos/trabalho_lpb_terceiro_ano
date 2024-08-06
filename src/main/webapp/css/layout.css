@@ -29,6 +29,10 @@ color palette: https://lospec.com/palette-list/paper10
     display: none;
 }
 
+.icon {
+    cursor: pointer;
+}
+
 .wrapper {
     width: 60%;
     max-width: 40em;
@@ -65,4 +69,8 @@ color palette: https://lospec.com/palette-list/paper10
 .button:active {
     transition: 0s;
     background-color: var(--salmon);
+}
+
+.active-flex {
+    display: flex !important;
 }
