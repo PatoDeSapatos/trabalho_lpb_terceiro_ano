@@ -1,0 +1,30 @@
+@import url(layout.css);
+
+body {
+    background-color: var(--dark-blue);
+}
+
+header {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+nav {
+    height: 100%;
+}
+
+nav a {
+    text-decoration: none;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a svg {
+    fill: var(--white);
+    transition: .5s;
+}
+
+nav a:hover svg {
+    fill: var(--green);
+}

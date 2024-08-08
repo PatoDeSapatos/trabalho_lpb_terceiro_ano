@@ -1,68 +1,105 @@
 .games-wrapper {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2em;
-    width: 100%;
-    padding: 1em;
-    background-color: var(--blue);
-}
-
-.games-area {
-    width: 100%;
-}
-
-.games-box {
-    width: 70%;
+    gap: 2.5em;
 }
 
 .game-section {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-info, .right-info {
-    display: flex;
-    gap: .5em;
-}
-
-.left-info {
-    font-size: 1.3em;
-}
-
-.left-info figure {
+    z-index: 0;
     position: relative;
-    width: 180px;
-    height: 200px;
-    overflow: hidden;
     display: flex;
-    justify-items: center;
-    background-position: center;
-    background-size: cover;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: 200px;
 }
 
-.left-info img {
-
+.game-section figure {
+    cursor: pointer;
+    position: relative;
+    width: 200px;
+    height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
-.right-info {
-    font-size: 1.1em;
+.game-section img {
+    width: auto;
     height: 100%;
 }
 
-.discount {
-    color: var(--green);
+.game-section figcaption {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins";
     font-weight: 800;
+    gap: .2em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.644);
+    width: 100%;
     height: 100%;
+    transition: .2s;
+    opacity: 0;
+    top: 0;
+}
+
+.game-section figcaption:hover {
+    opacity: 1;
+}
+
+.game-section h3 {
+    font-family: "Poppins";
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--yellow);
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: .5s;
+}
+
+.game-section h3:hover {
+    color: var(--pink);
+}
+
+.game-section a {
+    text-decoration: none;
 }
 
 .full-price {
     text-decoration: line-through;
-    opacity: 70%;
+    opacity: .65;
+}
+
+.discount {
+    background-color: var(--green);
+    color: var(--white);
+    padding: .2em .5em;
+    border-radius: 5px;
 }
 
 .price {
     color: var(--green);
-    font-weight: 800;
+}
+
+.game-section button {
+    position: relative;
+    cursor: pointer;
+    background-color: var(--purple);
+    padding: .2em .6em;
+    border-radius: 5px;
+    border: none;
+}
+
+.game-section button svg {
+    fill: var(--orange);
+    transition: .5s;
+}
+
+.game-section button:hover svg {
+    fill: var(--yellow)
 }

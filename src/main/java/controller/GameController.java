@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -32,9 +33,10 @@ public class GameController extends HttpServlet {
         //Entrada
 	    String name = request.getParameter("name");
         String oprt = request.getParameterValues("oprt")[0];
-        GameVO game = dao.getGameByName(name);
+        ArrayList<GameVO> game = dao.getGameByName(name);
 
         //Saida
+        /*
         switch (oprt) {
             case "discount":
                 request.setAttribute("operacao", "Cálculo de Desconto");
@@ -52,7 +54,7 @@ public class GameController extends HttpServlet {
                 request.setAttribute("operacao", "Operação Inválida");
                 request.setAttribute("resultado", "");
                 break;
-        }
+        }*/
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/relatorio.jsp");
 		dispatcher.forward(request, response);     

@@ -1,10 +1,10 @@
 package model;
 
-import java.io.DataInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.sql.DataSource;
@@ -20,38 +20,63 @@ public class GameDAO {
         this.dataSource = dataSource;
     }
 
-	public GameVO getGameByName(String name) {
+	public ArrayList<GameVO> getGameByName(String name) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
-		GameVO game;
+		ArrayList<GameVO> search = new ArrayList<GameVO>();
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "SELECT FROM games (id, name, views, price, purchases, discount, rating) WHERE name LIKE `%?%`";
+			String sql = "SELECT * FROM games WHERE name LIKE `%?%`";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, name);
 			result = statement.executeQuery();
-			result.getString(1);
-        	game = new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7));
+			
+			while (result.next()) {
+        		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
 			closeConnection(conexao, statement);
 		}
-			game = null;
-
-        return game;
+        return search;
 	}
 
+	public ArrayList<GameVO> getAllGames() {
+		Connection conexao = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		ArrayList<GameVO> search = new ArrayList<GameVO>();
+
+		try {
+			conexao = dataSource.getConnection();
+			String sql = "SELECT * FROM games";
+			statement = conexao.prepareStatement(sql);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+        		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection(conexao, statement);
+		}
+        return search;
+	}
 
     public boolean save(HttpServletRequest request, HttpServletResponse response) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
 
-        String name = request.getParameter("oprt");
+        String name = request.getParameter("name");
         double price = Double.parseDouble( request.getParameter("price") );
         int discount = Integer.parseInt( request.getParameter("discount") );
         double rating = Double.parseDouble( request.getParameter("rating") );
@@ -79,16 +104,16 @@ public class GameDAO {
         return result == 1;
     }
 
-	public boolean delete(String name) {
+	public boolean delete(String id) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "DELETE FROM games WHERE name LIKE `%?%`";
+			String sql = "DELETE FROM games WHERE id LIKE `%?%`";
 			statement = conexao.prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setString(1, id);
 			result = statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,20 +125,26 @@ public class GameDAO {
 		return result == 1;
 	}
 
-	public boolean update(HttpServletRequest request, HttpServletResponse response) { // TERMINAR ESSA BOSTA
+	public boolean update(HttpServletRequest request, HttpServletResponse response) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
+		String name = request.getParameter("name");
+		double price = Double.parseDouble(request.getParameter("price"));
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET name = `?`, price = `?` WHERE name LIKE `%?%`";
+			String sql = "UPDATE games SET name = `?`, price = `?` WHERE id LIKE `%?%`";
 			statement = conexao.prepareStatement(sql);
+			statement.setString(1, name);
+			statement.setDouble(2, price);
+			result = statement.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			result = 0;
 		}
 
-		return false;
+		return result == 1;
 	}
 
     private void closeConnection(Connection conexao, PreparedStatement statement) {
