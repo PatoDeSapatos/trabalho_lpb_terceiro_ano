@@ -1,0 +1,53 @@
+.games-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    width: 100%;
+    padding: 1em;
+    background-color: var(--blue);
+}
+
+.games-area {
+    width: 100%;
+}
+
+.games-box {
+    width: 70%;
+}
+
+.game-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-info, .right-info {
+    display: flex;
+    gap: .5em;
+}
+
+.left-info {
+    font-size: 1.3em;
+}
+
+.right-info {
+    font-size: 1.1em;
+    height: 100%;
+}
+
+.discount {
+    color: var(--green);
+    font-weight: 800;
+    height: 100%;
+}
+
+.full-price {
+    text-decoration: line-through;
+    opacity: 70%;
+}
+
+.price {
+    color: var(--green);
+    font-weight: 800;
+}

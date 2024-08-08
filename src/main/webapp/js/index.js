@@ -8,6 +8,9 @@ const searchBox = document.querySelector(".search-box");
 const searchIcon = document.querySelector(".search-icon");
 const searchBar = document.querySelector(".search-bar");
 
+const gameFormButton = document.querySelector(".add-button");
+const gameForm = document.querySelector("form.wrapper");
+
 for (let i = 0; i < inputBoxes.length; i++) {
     inputBoxes[i].addEventListener("focusin", (e) => {
         e.preventDefault();
@@ -30,4 +33,9 @@ searchIcon.addEventListener("click", (e) => {
     searchBar.classList.toggle("active-flex");
     searchIcon.classList.toggle("active-flex");
     searchBox.classList.toggle("active-flex");
+});
+
+gameFormButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    gameForm.classList.toggle("active-flex");
 });

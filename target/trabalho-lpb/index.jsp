@@ -1,7 +1,7 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="model.GameVO"
-%> -->
+%>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -64,33 +64,18 @@
     </form>
 
     <div class="games-wrapper">
-        <div class="games-area">
-            <div class="game-tabs">
-                <h2>Recentes: </h2>
-            </div>
+        <div class="game-tabs">
+            <h1>Recentes: </h1>
+        </div>
 
-            <div>
-                <div class="games-box">
-                    <div class="game-section">
-                        <div class="left-info">
-                            <img src="#" alt="game-banner">
-                            <h3>Lorem Ipsum</h3>
-                        </div>
+        <div class="games-box">
+            <% 
+                GameVO game = new GameVO();
+            %>
+        </div>
 
-                        <div class="right-info">
-                            <p class="discount">-50%</p>
-                            <div class="discount-area">
-                                <p class="full-price">R$ 88,88</p>
-                                <p class="price">R$ 88,88</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="games-info">
-                    
-                </div>
-            </div>
+        <div class="games-info">
+            
         </div>
     </div>
 
