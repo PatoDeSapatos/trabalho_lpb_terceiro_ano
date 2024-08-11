@@ -27,44 +27,6 @@
         <h1>Game Archive</h1>
     </header>
 
-    <form method="POST" action="GameController" class="wrapper">
-        <h1>Adicione Seu Jogo: </h1>
-        <div class="input-box">
-            <label for="">Nome: </label>
-            <input type="text" name="name" required>
-        </div>
-
-        <div class="input-box">
-            <label for="">Preço: </label>
-            <input type="number" name="price" step="0.01" required>
-        </div>
-
-        <div class="input-box">
-            <label for="">Views: </label>
-            <input type="number" name="views" required>
-        </div>
-
-        <div class="input-box">
-            <label for="">Compras: </label>
-            <input type="number" name="purchases" required>
-        </div>
-
-        <div class="input-box">
-            <label for="">Desconto: </label>
-            <input type="number" name="discount" min="0" max="100" required> 
-        </div>
-
-        <div class="range-input input-box">
-            <label for="">Nota: </label>
-            <input type="range" step="0.5" min="1" max="5" name="rating" required>
-            <p>3/5</p>
-        </div>
-
-        <div class="center-box">
-            <button name="oprt" value="register" type="submit" class="button">Enviar</button>
-        </div>
-    </form>
-
     <div class="recent-games-wrapper">
         <h3>Recentes: </h3>
         <div class="games-wrapper">

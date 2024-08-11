@@ -171,14 +171,18 @@ nav a:hover svg {
     font-weight: 600;
 }
 
-span.high-rate {
+span.rate {
+    text-transform: capitalize;
+}
+
+span.rate.alta, span.rate.alto {
     color: var(--green);
 }
 
-span.medium-rate {
+span.rate.mediana, span.rate.mediano {
     color: var(--orange);
 }
 
-span.low-rate {
+span.rate.baixa, span.rate.baixo {
     color: var(--red);
 }

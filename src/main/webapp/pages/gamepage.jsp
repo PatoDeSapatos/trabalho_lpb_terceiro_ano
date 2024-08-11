@@ -4,7 +4,7 @@
 %>
 
 <% 
-    GameVO game = new GameVO("1", "Celeste", "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/c_scale,w_400/ncom/pt_BR/games/switch/c/celeste-switch/description-image", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000006442/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252", 0, 25, 100, 50, 3);
+    GameVO game = new GameVO("1", "Celeste", "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/c_scale,w_400/ncom/pt_BR/games/switch/c/celeste-switch/description-image", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000006442/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252", 0, 2500, 100, 50, 3.5);
 %>
 
 <!DOCTYPE html>
@@ -13,12 +13,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/gameinfo.css">
-    <title><%! game.getName() %></title>
+    <title><%= game.getName() %> - Game Archive</title>
 </head>
 <body>
     <header>
         <nav>
-            <a href="../index.html">
+            <a href="../index.jsp">
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z"/></svg>
             </a>
         </nav>
@@ -32,7 +32,7 @@
                 <div class="rate-box">
                     <%
                         double rating = game.getRating();
-                        for(int i = 0; i <= 5; i++) {
+                        for(int i = 0; i < 5; i++) {
                             double star = (double) rating - i;
 
                             if (star >= 1) {
@@ -49,7 +49,7 @@
 
             <div class="user-action">
                 <figure>
-                    <img src=" <%! game.getBannerLink() %> " alt="game-banner">
+                    <img src=" <%= game.getBannerLink() %> " alt="game-banner">
                 </figure>
 
                 <div class="buy-section">
@@ -58,7 +58,7 @@
                             <%
                                 double discount = game.getDiscount();
                                 if (discount > 0) {
-                                    out.println( "<div class='discount'>-"+ game.getDiscount() + "</div> ");
+                                    out.println( "<div class='discount'>-"+ game.getDiscount() + "%</div> ");
                                 }
                             %>
                             
@@ -69,7 +69,7 @@
                                     }
                                 %>
                                 
-                                <p class="price">R$ <%! game.calcDiscount() %></p>
+                                <p class="price">R$ <%= game.calcDiscount() %></p>
                             </div>
                         </div>
                         <button>Comprar</button>
@@ -78,13 +78,13 @@
 
                 <div class="aditional-info">
                     <div>
-                        <div>Esse Jogo Foi Visto <%! game.getViews() %> Vezes</div>
-                        <div class="purchases">Compras: <%! game.getPurchases() %></div>
+                        <div>Esse Jogo Foi Visto <%= game.getViews() %> Vezes</div>
+                        <div class="purchases">Compras: <%= game.getPurchases() %></div>
                     </div>
 
                     <div>
-                        <div>Custo Benefício: <span class="high-rate"> <%! game.calcCostBenefit() %> </span></div>
-                        <div>Popularidade: <span class="medium-rate"><%! game.calcPopularity() %></span></div>
+                        <div>Custo Benefício: <span class="rate <%= game.calcCostBenefit() %>"> <%= game.calcCostBenefit() %> </span></div>
+                        <div>Popularidade: <span class="rate <%= game.calcPopularity() %>"><%= game.calcPopularity() %></span></div>
                     </div>
                 </div>
             </div>
