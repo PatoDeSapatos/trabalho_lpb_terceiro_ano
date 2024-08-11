@@ -35,7 +35,7 @@ public class GameDAO {
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-        		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
+        		search.add(new GameVO(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getInt(5), result.getDouble(6), result.getInt(7), result.getInt(8), result.getDouble(9)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class GameDAO {
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-        		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
+        		search.add(new GameVO(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getInt(5), result.getDouble(6), result.getInt(7), result.getInt(8), result.getDouble(9)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
