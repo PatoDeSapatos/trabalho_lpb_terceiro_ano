@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// TODO arrumar os constutores
 public class GameDAO {
 	private DataSource dataSource;
 
@@ -35,7 +36,6 @@ public class GameDAO {
 			
 			while (result.next()) {
         		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +60,6 @@ public class GameDAO {
 			
 			while (result.next()) {
         		search.add(new GameVO(result.getString(1), result.getString(2), result.getInt(3), result.getDouble(4), result.getInt(5), result.getInt(6), result.getDouble(7)));
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

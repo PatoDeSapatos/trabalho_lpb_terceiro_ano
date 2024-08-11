@@ -3,23 +3,28 @@ package model;
 public class GameVO {
     private String id;
     private String name;
+    private String iconLink;
+    private String bannerLink;
     private int views;
     private double price;
     private int purchases;
     private int discount;
     private double rating;
 
-    public GameVO() {
-    }
-    
-    public GameVO(String id, String name, int views, double price, int purchases, int discount, double rating) {
+    public GameVO(String id, String name, String iconLink, String bannerLink, int views, double price, int purchases,
+            int discount, double rating) {
         this.id = id;
         this.name = name;
+        this.iconLink = iconLink;
+        this.bannerLink = bannerLink;
         this.views = views;
         this.price = price;
         this.purchases = purchases;
         this.discount = discount;
         this.rating = rating;
+    }
+
+    public GameVO() {
     }
     
     //Getters and Setters
@@ -28,6 +33,21 @@ public class GameVO {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIconLink() {
+        return iconLink;
+    }
+    public void setIconLink(String iconLink) {
+        this.iconLink = iconLink;
+    }
+
+    public String getBannerLink() {
+        return bannerLink;
+    }
+
+    public void setBannerLink(String bannerLink) {
+        this.bannerLink = bannerLink;
     }
     public String getName() {
         return name;
@@ -76,11 +96,11 @@ public class GameVO {
         double costBenefit = getPrice() / getRating();
 
         if (costBenefit <= 20.0) {
-            return "O jogo possui alto custo beneficio";
+            return "Alto";
         } else if(costBenefit <= 40.0) {
-            return "O jogo possui um custo beneficio mediano";
+            return "Mediano";
         } else {
-            return "O jogo possui baixo custo beneficio";
+            return "Baixo";
         }
     }
 
@@ -88,12 +108,11 @@ public class GameVO {
         double buyRate = ((double) getPurchases() / getViews()) * 100;
 
         if(buyRate >= 70.0) {
-            return "O jogo possui alta popularidade";
-            
+            return "Alta";
         } else if(buyRate >= 35.0) {
-            return "O jogo possui uma popularidade mediana";
+            return "Mediana";
         } else {
-            return "O jogo possui baixa popularidade";
+            return "Baixa";
         }
     }
 }

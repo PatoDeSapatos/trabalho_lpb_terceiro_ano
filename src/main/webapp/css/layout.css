@@ -14,7 +14,7 @@ color palette: https://lospec.com/palette-list/paper10
     --red: #ee0f4d;
     --pink: #db51db;
     --purple: #992caf;
-    --green: #00ddad;
+    --green: #00ac86;
     --blue:  #3f3479;
     --dark-blue: #262640;
 }
@@ -94,7 +94,6 @@ header {
     background-color: var(--red);
     justify-content: space-between;
     align-items: center;
-    position: absolute;
     top: 0;
     width: 100%;
     padding: 2em 5em;
