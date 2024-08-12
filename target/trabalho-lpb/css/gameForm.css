@@ -1,0 +1,89 @@
+@import url(./layout.css);
+
+form.wrapper {
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+form h1 {
+    font-size: 3em;
+    width: 100%;
+    text-align: center;
+    color: var(--yellow);
+    font-family: "Patrick Hand SC", cursive;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 89%;
+    height: 89%;
+    min-height: 3.5em;
+    color: black;
+    transition: .2s ease;
+}
+
+form p {
+    width: 100%;
+    text-align: center;
+}
+
+label {
+    font-family: "Salsa", cursive;
+    font-weight: 100;
+    color: var(--salmon);
+    font-size: 1.05em;
+    margin: 3px;
+    position: relative;
+    z-index: 2;
+}
+
+form input {
+    font-family: "Poppins", sans;
+    font-weight: 500;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1.5em .5em .5em .5em;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.15em;
+}
+
+input[type="range"] {
+    padding: 0;
+    accent-color: var(--red);
+}
+
+.range-input {
+    gap: 1em;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.range-input p {
+    font-weight: bold;
+}
+
+.center-box {
+    align-items: center;
+}
+
+select {
+    cursor: pointer;
+    height: 2.5em;
+    font-size: 1.1em;
+    border-radius: 6px;
+    text-align: center;
+    width: 89%;
+}
+
+.active-input {
+    width: 92%;
+    height: 100%;
+}
