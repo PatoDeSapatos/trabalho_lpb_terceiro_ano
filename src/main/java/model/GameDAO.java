@@ -69,11 +69,13 @@ public class GameDAO {
 		finally {
 			closeConnection(conexao, statement);
 		}
+		
+		request.setAttribute("games", search);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/homepage.jsp");
 		dispatcher.forward(request, response);
 	}
 
-    public boolean save(HttpServletRequest request, HttpServletResponse response) {
+    public boolean save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
@@ -107,12 +109,15 @@ public class GameDAO {
 			closeConnection(conexao, statement);
 		}
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+		dispatcher.forward(request, response);
         return result == 1;
     }
 
-	public boolean delete(String id) {
+	public boolean delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
+		String id = (String) request.getAttribute("gameId");
 		int result;
 
 		try {
@@ -127,11 +132,13 @@ public class GameDAO {
 		} finally {
 			closeConnection(conexao, statement);
 		}
-
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+		dispatcher.forward(request, response);
 		return result == 1;
 	}
 
-	public boolean update(HttpServletRequest request, HttpServletResponse response) {
+	public boolean update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
@@ -156,6 +163,8 @@ public class GameDAO {
 			result = 0;
 		}
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+		dispatcher.forward(request, response);
 		return result == 1;
 	}
 
@@ -171,4 +180,19 @@ public class GameDAO {
 			e.printStackTrace();
 		}
     }
+
+    public void showGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = (String) request.getAttribute("game");
+
+		GameVO game = getGameById(id);
+		request.setAttribute("game", game);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gamepage.jsp");
+		dispatcher.forward(request, response);
+    }
+
+	public GameVO getGameById(String gameId) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getGameById'");
+	}
 }

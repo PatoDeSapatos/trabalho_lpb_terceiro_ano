@@ -4,12 +4,12 @@
 %> 
 
 <%
-    String operation = (String) request.getParameter("operation");
+    String operation = (String) request.getAttribute("operation");
     String displayOperation = "";
     GameVO game = null;
 
     if ( operation.equals("edit") ) {
-        game = new GameVO("1", "Celeste", "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/c_scale,w_400/ncom/pt_BR/games/switch/c/celeste-switch/description-image", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000006442/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252", 0, 2500, 100, 50, 3.5);
+        game = (GameVO) request.getAttribute("game");
         displayOperation = "Edite";
     } else if (operation.equals("register")) {
         game = new GameVO();
@@ -22,13 +22,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/gameForm.css">
+    <link rel="stylesheet" href="./css/gameForm.css">
     <title>Game Archive - <%= displayOperation %> Seu Jogo</title>
 </head>
 <body>
     <header>
         <nav>
-            <a href="../index.jsp">
+            <a href="./index.html">
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z"/></svg>
             </a>
         </nav>

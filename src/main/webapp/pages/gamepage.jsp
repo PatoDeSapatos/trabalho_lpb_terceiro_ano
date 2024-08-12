@@ -4,7 +4,7 @@
 %>
 
 <% 
-    GameVO game = new GameVO("1", "Dark Souls II", "https://upload.wikimedia.org/wikipedia/pt/2/22/Dark_Souls_2_capa.png", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/236430/capsule_616x353.jpg?t=1721682906", 0, 2500, 100, 50, 3.5);
+    GameVO game = (GameVO) request.getAttribute("game");
 %>
 
 <!DOCTYPE html>
@@ -12,13 +12,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/gameinfo.css">
+    <link rel="stylesheet" href="./css/gameinfo.css">
     <title><%= game.getName() %> - Game Archive</title>
 </head>
 <body>
     <header>
         <nav>
-            <a href="../index.jsp">
+            <a href="./index.html">
                 <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z"/></svg>
             </a>
         </nav>

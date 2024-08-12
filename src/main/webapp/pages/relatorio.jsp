@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/relatorio.css">
-    <title>Relatório - Catálogo de Jogos</title>
+    <title>Relatï¿½rio - Catï¿½logo de Jogos</title>
 </head>
 <body>
     <div class="wrapper">
@@ -17,7 +17,7 @@
 
 		<div>
 			<ul>
-				<li>Preço: <%= request.getAttribute("price") %></li>
+				<li>Preï¿½o: <%= request.getAttribute("price") %></li>
 				<li>Views: <%= request.getAttribute("views") %></li>
 				<li>Compras: <%= request.getAttribute("purchases") %></li>
 				<li>Desconto: <%= request.getAttribute("discount") %></li>
@@ -25,7 +25,7 @@
 			</ul>
 		</div>
 
-        <a href="./index.html"><button class="button">Voltar</button></a>
+        <a href="../index.html"><button class="button">Voltar</button></a>
     </div>
 </body>
 </html>

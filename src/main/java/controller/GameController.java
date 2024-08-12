@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -13,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.GameDAO;
-import model.GameVO;
 
 @WebServlet("/GameController")
 public class GameController extends HttpServlet {
@@ -32,20 +30,35 @@ public class GameController extends HttpServlet {
         
         //Entrada
         String oprt = request.getParameter("operation");
+        RequestDispatcher dispatcher = null;
 
         //Saida
         switch (oprt) {
             case "getall": 
                 dao.getAllGames(request, response);
                 break;
+            case "showgame":
+                dao.showGame(request, response);
+                break;
+            case "register":
+                request.setAttribute("operation", "register");
+                dispatcher = request.getRequestDispatcher("/pages/gameForm.jsp");
+                dispatcher.forward(request, response);
+                break;
+            case "edit":
+                String gameId = (String) request.getAttribute("game");
+                request.setAttribute("game", dao.getGameById(gameId));
+                request.setAttribute("operation", "edit");
+    
+                dispatcher = request.getRequestDispatcher("/pages/gameForm.jsp");
+                dispatcher.forward(request, response);
+                break;
 
             default:
                 request.setAttribute("operacao", "Operação Inválida");
                 request.setAttribute("resultado", "");
                 break;
-        }
-
-		   
+        }  
 	} 
 
     @Override
@@ -55,6 +68,12 @@ public class GameController extends HttpServlet {
         switch (oprt) {
             case "register":
                 dao.save(request, response);
+                break;
+            case "edit":
+                dao.update(request, response);
+                break;
+            case "delete":
+                dao.delete(request, response);
                 break;
         
             default:
