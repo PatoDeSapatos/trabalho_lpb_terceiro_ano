@@ -31,7 +31,7 @@ public class GameDAO {
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games WHERE `name` LIKE '%?%';";
+			String sql = "SELECT * FROM games WHERE name LIKE '%?%';";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, name);
 			result = statement.executeQuery();
@@ -39,7 +39,7 @@ public class GameDAO {
 			while (result.next()) {
         		search.add(new GameVO(result));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
@@ -63,7 +63,7 @@ public class GameDAO {
 			while (result.next()) {
         		search.add(new GameVO(result));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
@@ -89,7 +89,7 @@ public class GameDAO {
 
         try {
 			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO games (`id`, `name`, `iconLink`, `bannerLink`, `views`, `price`, `purchases`, `discount`, `rating`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO games (id, name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, UUID.randomUUID().toString());
 			statement.setString(2, name);
@@ -117,16 +117,16 @@ public class GameDAO {
 	public boolean delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
-		String id = (String) request.getAttribute("gameId");
+		String id = (String) request.getParameter("gameId");
 		int result;
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "DELETE FROM games WHERE `id` LIKE '%?%';";
+			String sql = "DELETE FROM games WHERE id LIKE '%?%';";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, id);
 			result = statement.executeUpdate();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			result = 0;
 		} finally {
@@ -150,7 +150,7 @@ public class GameDAO {
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET `name` = '?', `iconLink` = '?', `bannerLink` = '?', `price` = ?,  WHERE `id` LIKE '%?%';";
+			String sql = "UPDATE games SET name = ?, iconLink = ?, bannerLink = ?, price = ?,  WHERE id = '%?%';";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, name);
 			statement.setString(2, iconLink);
@@ -158,7 +158,7 @@ public class GameDAO {
 			statement.setDouble(4, price);
 			statement.setString(5, id);
 			result = statement.executeUpdate();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			result = 0;
 		}
@@ -182,7 +182,7 @@ public class GameDAO {
     }
 
     public void showGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = (String) request.getAttribute("game");
+		String id = (String) request.getParameter("game");
 
 		GameVO game = getGameById(id);
 		request.setAttribute("game", game);
@@ -199,12 +199,25 @@ public class GameDAO {
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games WHERE `id` = '?';";
+			String sql = "SELECT * FROM games WHERE id = ?;";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, gameId);
 			result = statement.executeQuery();
-			game = new GameVO(result);
-		} catch (Exception e) {
+
+			while (result.next()) {
+				String name = result.getString("name");
+				String iconLink = result.getString("iconLink");
+				String bannerLink = result.getString("bannerLink");
+				int views = result.getInt("views");
+				double price = result.getDouble("price");
+				int purchases = result.getInt("purchases");
+				int discount = result.getInt("discount");
+				double rating = result.getDouble("rating");
+
+				game = new GameVO(gameId, name, iconLink, bannerLink, views, price, purchases, discount, rating);
+			}
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {

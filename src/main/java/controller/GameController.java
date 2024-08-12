@@ -46,7 +46,7 @@ public class GameController extends HttpServlet {
                 dispatcher.forward(request, response);
                 break;
             case "edit":
-                String gameId = (String) request.getAttribute("game");
+                String gameId = (String) request.getParameter("game");
                 request.setAttribute("game", dao.getGameById(gameId));
                 request.setAttribute("operation", "edit");
     
