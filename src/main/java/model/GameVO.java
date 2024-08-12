@@ -40,6 +40,15 @@ public class GameVO {
     }
 
     public GameVO() {
+        this.id = ""; 
+        this.name = "";
+        this.iconLink = "";
+        this.bannerLink = "";
+        this.views = 0;
+        this.price = 0;
+        this.purchases = 0;
+        this.discount = 0;
+        this.rating = 3;
     }
     
     //Getters and Setters

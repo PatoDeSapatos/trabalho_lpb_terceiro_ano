@@ -62,7 +62,7 @@ public class GameController extends HttpServlet {
 
     @Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
-        String oprt = request.getParameter("oprt").toLowerCase();
+        String oprt = request.getParameter("operation").toLowerCase();
 
         switch (oprt) {
             case "register":
