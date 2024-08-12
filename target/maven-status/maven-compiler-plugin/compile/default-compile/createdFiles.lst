@@ -1,4 +1,3 @@
 controller\GameController.class
 model\GameDAO.class
-model\teste.class
 model\GameVO.class

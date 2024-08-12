@@ -36,7 +36,7 @@
     </header>
 
     <form method="POST" action="GameController" class="wrapper">
-        <input type="hidden" value="<%= game.getId() %>" />
+        <input type="hidden" name="gameId" value="<%= game.getId() %>" />
 
         <h1><%= displayOperation %> Seu Jogo: </h1>
         <div class="input-box">
@@ -60,11 +60,6 @@
         </div>
 
         <div class="input-box">
-            <label for="">Compras: </label>
-            <input type="number" name="purchases" value="<%= game.getPurchases() %>" required>
-        </div>
-
-        <div class="input-box">
             <label for="">Desconto: </label>
             <input type="number" name="discount" min="0" max="100" value="<%= game.getDiscount() %>" required> 
         </div>
@@ -80,6 +75,6 @@
         </div>
     </form>
 
-    <script src="../js/gameForm.js"></script>
+    <script src="./js/gameForm.js"></script>
 </body>
 </html>

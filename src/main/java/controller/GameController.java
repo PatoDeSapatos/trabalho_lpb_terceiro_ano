@@ -75,6 +75,9 @@ public class GameController extends HttpServlet {
             case "delete":
                 dao.delete(request, response);
                 break;
+            case "buy":
+                dao.buy(request, response);
+                break;
         
             default:
                 break;

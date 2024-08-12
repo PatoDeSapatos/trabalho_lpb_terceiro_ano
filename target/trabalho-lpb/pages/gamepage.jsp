@@ -4,7 +4,7 @@
 %>
 
 <% 
-    GameVO game = (GameVO) request.getAttribute("game");
+    GameVO game = (GameVO) request.getAttribute("gameInfo");
 %>
 
 <!DOCTYPE html>
@@ -72,7 +72,10 @@
                                 <p class="price">R$ <%= game.calcDiscount() %></p>
                             </div>
                         </div>
-                        <button>Comprar</button>
+                        <form action='GameController' method='POST'>
+                            <input type="hidden" name="game" value="<%= game.getId() %>"/>
+                            <button name="operation" value="buy">Comprar</button>
+                        </form>
                     </div>              
                 </div>
 

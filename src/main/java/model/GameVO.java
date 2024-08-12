@@ -111,13 +111,14 @@ public class GameVO {
         this.rating = rating;
     }
 
-    public String calcDiscount() {
+    public double calcDiscount() {
         double discountValue = getPrice() * ((double) getDiscount() / 100);
-        return String.format("%.2f", getPrice() - discountValue);
+        return getPrice() - discountValue;
     }
 
     public String calcCostBenefit() {
-        double costBenefit = getPrice() / getRating();
+
+        double costBenefit = calcDiscount() / getRating();
 
         if (costBenefit <= 20.0) {
             return "alto";

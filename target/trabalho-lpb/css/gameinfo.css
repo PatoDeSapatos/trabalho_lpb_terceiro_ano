@@ -98,6 +98,10 @@ nav a:hover svg {
     background-color: red;
 }
 
+.price-box form {
+    padding: 0;
+}
+
 .price-values {
     flex-direction: row;
     padding: 0;
