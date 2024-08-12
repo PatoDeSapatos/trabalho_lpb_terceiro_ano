@@ -192,7 +192,25 @@ public class GameDAO {
     }
 
 	public GameVO getGameById(String gameId) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getGameById'");
+		Connection conexao = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		GameVO game = null;
+
+		try {
+			conexao = dataSource.getConnection();
+			String sql = "SELECT * FROM games WHERE `id` = '?';";
+			statement = conexao.prepareStatement(sql);
+			statement.setString(1, gameId);
+			result = statement.executeQuery();
+			game = new GameVO(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection(conexao, statement);
+		}
+
+		return game;
 	}
 }
