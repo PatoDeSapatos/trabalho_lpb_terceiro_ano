@@ -4,7 +4,7 @@
 %>
 
 <% 
-    GameVO game = new GameVO("1", "Celeste", "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/f_auto/q_auto/dpr_1.5/c_scale,w_400/ncom/pt_BR/games/switch/c/celeste-switch/description-image", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000006442/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252", 0, 2500, 100, 50, 3.5);
+    GameVO game = new GameVO("1", "Dark Souls II", "https://upload.wikimedia.org/wikipedia/pt/2/22/Dark_Souls_2_capa.png", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/236430/capsule_616x353.jpg?t=1721682906", 0, 2500, 100, 50, 3.5);
 %>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
     <div class="game-info">
         <div class="main-info">
             <div class="header">
-                <h1>Celeste</h1>
+                <h1><%= game.getName() %></h1>
                 <div class="rate-box">
                     <%
                         double rating = game.getRating();

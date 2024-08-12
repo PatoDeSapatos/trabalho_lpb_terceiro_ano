@@ -1,9 +1,23 @@
 @import url(./layout.css);
 
+body {
+    background-color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
 form.wrapper {
-    position: absolute;
+    background-color: var(--dark-blue);
+    box-shadow: none;
     z-index: 999;
-    display: none;
+    display: flex;
+    height: 100%;
+    width: 100%;
 }
 
 form h1 {
