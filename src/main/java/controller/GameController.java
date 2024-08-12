@@ -31,33 +31,21 @@ public class GameController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
         
         //Entrada
-	    String name = request.getParameter("name");
-        String oprt = request.getParameterValues("oprt")[0];
-        ArrayList<GameVO> game = dao.getGameByName(name);
+        String oprt = request.getParameter("operation");
 
         //Saida
-        /*
         switch (oprt) {
-            case "discount":
-                request.setAttribute("operacao", "Cálculo de Desconto");
-                request.setAttribute("resultado", game.calcDiscount());
+            case "getall": 
+                dao.getAllGames(request, response);
                 break;
-            case "benefit":
-                request.setAttribute("operacao", "Cálculo de Custo Benefício");
-                request.setAttribute("resultado", game.calcCostBenefit());
-                break;
-            case "popularity":
-                request.setAttribute("operacao", "Cálculo de Popularidade");
-                request.setAttribute("resultado", game.calcPopularity());
-                break;
+
             default:
                 request.setAttribute("operacao", "Operação Inválida");
                 request.setAttribute("resultado", "");
                 break;
-        }*/
+        }
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/relatorio.jsp");
-		dispatcher.forward(request, response);     
+		   
 	} 
 
     @Override

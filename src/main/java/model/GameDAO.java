@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -45,7 +48,7 @@ public class GameDAO {
         return search;
 	}
 
-	public ArrayList<GameVO> getAllGames() {
+	public void getAllGames(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -66,7 +69,8 @@ public class GameDAO {
 		finally {
 			closeConnection(conexao, statement);
 		}
-        return search;
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/homepage.jsp");
+		dispatcher.forward(request, response);
 	}
 
     public boolean save(HttpServletRequest request, HttpServletResponse response) {
