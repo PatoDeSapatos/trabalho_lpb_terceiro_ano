@@ -1,4 +1,161 @@
-.games-wrapper {
+.recent-games-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
     width: 100%;
-    background-color: var(--blue);
+    height: 100%;
+    padding: 2em;
+}
+
+.recent-games-wrapper h3 {
+    color: var(--yellow);
+    font-family: "Poppins";
+    font-size: 1.7em;
+}
+
+.games-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: left;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    gap: 2.5em;
+}
+
+.game-section {
+    z-index: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: 200px;
+    overflow: hidden;
+}
+
+.game-section figure {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    width: 200px;
+    height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.game-section .circular-shadow {
+    z-index: 10;
+    position: absolute;
+    top: -10%;
+    width: 200%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 10px 100px 14px black, inset 0 10px 80px 10px black;
+    transition: .5s;
+}
+
+.game-section:hover .circular-shadow {
+    box-shadow: 0;
+}
+
+.game-section img {
+    width: auto;
+    height: 100%;
+}
+
+.game-section figcaption {
+    z-index: 11;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins";
+    font-weight: 800;
+    gap: .2em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.644);
+    width: 100%;
+    height: 100%;
+    transition: .2s;
+    opacity: 0;
+    box-shadow: inset black 0 0 20px -3px;
+    top: 0;
+}
+
+.game-section figure:hover figcaption {
+    opacity: 1;
+}
+
+.game-section h3 {
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    padding: 0 .6em;
+    text-align: center;
+    bottom: .5em;
+    left: 0;
+    font-family: "Poppins";
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--yellow);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: .5s;
+}
+
+.game-section a {
+    text-decoration: none;
+}
+
+.full-price {
+    text-decoration: line-through;
+    opacity: .65;
+}
+
+.discount {
+    background-color: var(--green);
+    color: var(--white);
+    padding: .2em .5em;
+    border-radius: 5px;
+}
+
+.price {
+    color: var(--green);
+}
+
+.game-section form {
+    display: flex;
+    gap: 1em;
+}
+
+.game-section form > * {
+    position: relative;
+    cursor: pointer;
+    background-color: var(--purple);
+    padding: .2em .6em;
+    border-radius: 5px;
+    border: none;
+}
+
+.game-section form a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-section svg {
+    fill: var(--orange);
+    transition: .5s;
+}
+
+.game-section button:hover svg, .game-section a:hover svg {
+    fill: var(--yellow)
 }

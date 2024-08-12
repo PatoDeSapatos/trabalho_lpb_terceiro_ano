@@ -1,5 +1,8 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class GameVO {
     private String id;
     private String name;
@@ -22,6 +25,18 @@ public class GameVO {
         this.purchases = purchases;
         this.discount = discount;
         this.rating = rating;
+    }
+
+    public GameVO(ResultSet result) throws SQLException {
+        this.id = result.getString(1); 
+        this.name = result.getString(2);
+        this.iconLink = result.getString(3);
+        this.bannerLink = result.getString(4);
+        this.views = result.getInt(5);
+        this.price = result.getDouble(6);
+        this.purchases = result.getInt(7);
+        this.discount = result.getInt(8);
+        this.rating = result.getDouble(9);
     }
 
     public GameVO() {
@@ -96,11 +111,11 @@ public class GameVO {
         double costBenefit = getPrice() / getRating();
 
         if (costBenefit <= 20.0) {
-            return "Alto";
+            return "alto";
         } else if(costBenefit <= 40.0) {
-            return "Mediano";
+            return "mediano";
         } else {
-            return "Baixo";
+            return "baixo";
         }
     }
 
@@ -108,11 +123,11 @@ public class GameVO {
         double buyRate = ((double) getPurchases() / getViews()) * 100;
 
         if(buyRate >= 70.0) {
-            return "Alta";
+            return "alta";
         } else if(buyRate >= 35.0) {
-            return "Mediana";
+            return "mediana";
         } else {
-            return "Baixa";
+            return "baixa";
         }
     }
 }

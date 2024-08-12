@@ -130,7 +130,12 @@
     color: var(--green);
 }
 
-.game-section button {
+.game-section form {
+    display: flex;
+    gap: 1em;
+}
+
+.game-section form > * {
     position: relative;
     cursor: pointer;
     background-color: var(--purple);
@@ -139,11 +144,18 @@
     border: none;
 }
 
-.game-section button svg {
+.game-section form a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-section svg {
     fill: var(--orange);
     transition: .5s;
 }
 
-.game-section button:hover svg {
+.game-section button:hover svg, .game-section a:hover svg {
     fill: var(--yellow)
 }
