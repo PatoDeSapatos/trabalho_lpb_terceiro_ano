@@ -10,10 +10,7 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class GameDAO {
 	private DataSource dataSource;
@@ -48,7 +45,7 @@ public class GameDAO {
         return search;
 	}
 
-	public void getAllGames(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ArrayList<GameVO> getAllGames() throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -69,37 +66,28 @@ public class GameDAO {
 		finally {
 			closeConnection(conexao, statement);
 		}
-		
-		request.setAttribute("games", search);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/homepage.jsp");
-		dispatcher.forward(request, response);
+
+		return search;
 	}
 
-    public boolean save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public boolean save(GameVO game) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
-
-        String name = request.getParameter("name");
-		String iconLink = request.getParameter("iconLink");
-		String bannerLink = request.getParameter("bannerLink");
-        double price = Double.parseDouble( request.getParameter("price") );
-        int discount = Integer.parseInt( request.getParameter("discount") );
-        double rating = Double.parseDouble( request.getParameter("rating") );
 
         try {
 			conexao = dataSource.getConnection();
 			String sql = "INSERT INTO games (id, name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, UUID.randomUUID().toString());
-			statement.setString(2, name);
-			statement.setString(3, iconLink);
-			statement.setString(4, bannerLink);
+			statement.setString(2, game.getName());
+			statement.setString(3, game.getIconLink());
+			statement.setString(4, game.getBannerLink());
 			statement.setInt(5, 0);
-			statement.setDouble(6, price);
+			statement.setDouble(6, game.getPrice());
 			statement.setInt(7, 0);
-			statement.setInt(8, discount);
-			statement.setDouble(9, rating);
+			statement.setInt(8, game.getDiscount());
+			statement.setDouble(9, game.getRating());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,15 +97,12 @@ public class GameDAO {
 			closeConnection(conexao, statement);
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
         return result == 1;
     }
 
-	public boolean delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public boolean delete(String id) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
-		String id = (String) request.getParameter("gameId");
 		int result;
 
 		try {
@@ -132,35 +117,26 @@ public class GameDAO {
 		} finally {
 			closeConnection(conexao, statement);
 		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
+
 		return result == 1;
 	}
 
-	public boolean update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public boolean update(String id, GameVO newGame) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 		int result;
-		String name = request.getParameter("name");
-		String iconLink = request.getParameter("iconLink");
-		String bannerLink = request.getParameter("bannerLink");
-		double price = Double.parseDouble(request.getParameter("price"));
-		int discount = Integer.parseInt(request.getParameter("discount"));
-		double rating = Double.parseDouble(request.getParameter("rating"));
-		String id = request.getParameter("gameId");
 
 		try {
 			conexao = dataSource.getConnection();
 			String sql = "UPDATE games SET name = ?, iconLink = ?, bannerLink = ?, price = ?, discount = ?, rating = ? WHERE id = ?;";
 			statement = conexao.prepareStatement(sql);
 
-			statement.setString(1, name);
-			statement.setString(2, iconLink);
-			statement.setString(3, bannerLink);
-			statement.setDouble(4, price);
-			statement.setInt(5, discount);
-			statement.setDouble(6, rating);
+			statement.setString(1, newGame.getName());
+			statement.setString(2, newGame.getIconLink());
+			statement.setString(3, newGame.getBannerLink());
+			statement.setDouble(4, newGame.getPrice());
+			statement.setInt(5, newGame.getDiscount());
+			statement.setDouble(6, newGame.getRating());
 			statement.setString(7, id);
 
 			result = statement.executeUpdate();
@@ -172,8 +148,6 @@ public class GameDAO {
 			closeConnection(conexao, statement);
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
 		return result == 1;
 	}
 
@@ -190,29 +164,19 @@ public class GameDAO {
 		}
     }
 
-    public void showGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void updateGameViews(String id) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 
-		String id = (String) request.getParameter("game");
-		GameVO game = getGameById(id);
-		int views = game.getViews();
-
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET views = ? WHERE id = ?;";
+			String sql = "UPDATE games SET views = views + 1 WHERE id = ?;";
 			statement = conexao.prepareStatement(sql);
-			statement.setInt(1, views + 1);
-			statement.setString(2, id);
+			statement.setString(1, id);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		game.setViews(views + 1);
-		request.setAttribute("gameInfo", game);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gamepage.jsp");
-		dispatcher.forward(request, response);
     }
 
 	public GameVO getGameById(String gameId) {
@@ -251,28 +215,22 @@ public class GameDAO {
 		return game;
 	}
 
-	public void buy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void buy(GameVO game) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 
-		String id = (String) request.getParameter("game");
-		GameVO game = getGameById(id);
+		String id = game.getId();
 		int purchases = game.getPurchases() + 1;
 		game.setPurchases(purchases);
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET purchases = ? WHERE id = ?;";
+			String sql = "UPDATE games SET purchases = purchases + 1 WHERE id = ?;";
 			statement = conexao.prepareStatement(sql);
-			statement.setInt(1, purchases);
-			statement.setString(2, id);
+			statement.setString(1, id);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		request.setAttribute("gameInfo", game);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gamepage.jsp");
-		dispatcher.forward(request, response);
 	}
 }
