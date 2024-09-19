@@ -11,8 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.GameDAO;
-import model.GameVO;
+import model.game.GameDAO;
+import model.game.GameVO;
 
 @WebServlet("/GameController")
 public class GameController extends HttpServlet {
