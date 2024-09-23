@@ -29,10 +29,8 @@ public class GameController extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
         
-        //Entrada
         String oprt = request.getParameter("operation");
 
-        //Saida
         switch (oprt) {
             case "getall": 
                 getHomePage(request, response);
@@ -106,7 +104,7 @@ public class GameController extends HttpServlet {
 		int discount = Integer.parseInt(request.getParameter("discount"));
 		double rating = Double.parseDouble(request.getParameter("rating"));
 
-        GameVO newGame = new GameVO(id, name, iconLink, bannerLink, discount, price, discount, discount, rating);
+        GameVO newGame = new GameVO(id, "", name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
         boolean resultado = dao.update(id, newGame);
 
@@ -116,6 +114,7 @@ public class GameController extends HttpServlet {
     }
 
     private void registerGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userId = request.getParameter("userId");
         String name = request.getParameter("name");
 		String iconLink = request.getParameter("iconLink");
 		String bannerLink = request.getParameter("bannerLink");
@@ -123,7 +122,7 @@ public class GameController extends HttpServlet {
         int discount = Integer.parseInt( request.getParameter("discount") );
         double rating = Double.parseDouble( request.getParameter("rating") );
 
-        GameVO game = new GameVO("", name, iconLink, bannerLink, discount, price, discount, discount, rating);
+        GameVO game = new GameVO("", userId, name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
         boolean resultado = dao.save(game);
 

@@ -11,13 +11,13 @@ import java.util.UUID;
 import javax.sql.DataSource;
 
 import jakarta.servlet.ServletException;
+import model.DAO;
 
-public class GameDAO {
+public class GameDAO extends DAO {
 	private DataSource dataSource;
 
     public GameDAO(DataSource dataSource) {
-        super();
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
 	public ArrayList<GameVO> getGameByName(String name) {
@@ -77,17 +77,18 @@ public class GameDAO {
 
         try {
 			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO games (id, name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO games (id, userId name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, UUID.randomUUID().toString());
-			statement.setString(2, game.getName());
-			statement.setString(3, game.getIconLink());
-			statement.setString(4, game.getBannerLink());
-			statement.setInt(5, 0);
-			statement.setDouble(6, game.getPrice());
-			statement.setInt(7, 0);
-			statement.setInt(8, game.getDiscount());
-			statement.setDouble(9, game.getRating());
+			statement.setString(2, game.getUserId());
+			statement.setString(3, game.getName());
+			statement.setString(4, game.getIconLink());
+			statement.setString(5, game.getBannerLink());
+			statement.setInt(6, 0);
+			statement.setDouble(7, game.getPrice());
+			statement.setInt(8, 0);
+			statement.setInt(9, game.getDiscount());
+			statement.setDouble(10, game.getRating());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -151,19 +152,6 @@ public class GameDAO {
 		return result == 1;
 	}
 
-    private void closeConnection(Connection conexao, PreparedStatement statement) {
-        try {
-			if (conexao != null) {
-				conexao.close();
-			}
-			if (statement != null) {
-				statement.close();
-			}
-        } catch (SQLException e) {
-			e.printStackTrace();
-		}
-    }
-
     public void updateGameViews(String id) throws ServletException, IOException {
 		Connection conexao = null;
 		PreparedStatement statement = null;
@@ -193,16 +181,7 @@ public class GameDAO {
 			result = statement.executeQuery();
 
 			while (result.next()) {
-				String name = result.getString("name");
-				String iconLink = result.getString("iconLink");
-				String bannerLink = result.getString("bannerLink");
-				int views = result.getInt("views");
-				double price = result.getDouble("price");
-				int purchases = result.getInt("purchases");
-				int discount = result.getInt("discount");
-				double rating = result.getDouble("rating");
-
-				game = new GameVO(gameId, name, iconLink, bannerLink, views, price, purchases, discount, rating);
+				game = new GameVO(result);
 			}
 
 		} catch (SQLException e) {

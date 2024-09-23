@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class GameVO {
     private String id;
+    private String userId;
     private String name;
     private String iconLink;
     private String bannerLink;
@@ -14,9 +15,10 @@ public class GameVO {
     private int discount;
     private double rating;
 
-    public GameVO(String id, String name, String iconLink, String bannerLink, int views, double price, int purchases,
+    public GameVO(String id, String userId, String name, String iconLink, String bannerLink, int views, double price, int purchases,
             int discount, double rating) {
         this.id = id;
+        this.userId = userId;
         this.name = name;
         this.iconLink = iconLink;
         this.bannerLink = bannerLink;
@@ -29,14 +31,15 @@ public class GameVO {
 
     public GameVO(ResultSet result) throws SQLException {
         this.id = result.getString(1); 
-        this.name = result.getString(2);
-        this.iconLink = result.getString(3);
-        this.bannerLink = result.getString(4);
-        this.views = result.getInt(5);
-        this.price = result.getDouble(6);
-        this.purchases = result.getInt(7);
-        this.discount = result.getInt(8);
-        this.rating = result.getDouble(9);
+        this.userId = result.getString(2); 
+        this.name = result.getString(3);
+        this.iconLink = result.getString(4);
+        this.bannerLink = result.getString(5);
+        this.views = result.getInt(6);
+        this.price = result.getDouble(7);
+        this.purchases = result.getInt(8);
+        this.discount = result.getInt(9);
+        this.rating = result.getDouble(10);
     }
 
     public GameVO() {
@@ -57,6 +60,13 @@ public class GameVO {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getIconLink() {
