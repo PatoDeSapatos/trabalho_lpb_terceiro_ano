@@ -1,3 +1,7 @@
+model\game\GameVO.class
+controller\UserController.class
 controller\GameController.class
-model\GameDAO.class
-model\GameVO.class
+model\user\UserVO.class
+model\game\GameDAO.class
+model\DAO.class
+model\user\UserDAO.class

@@ -4,13 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.sql.DataSource;
 
 import model.DAO;
-import model.game.GameVO;
 
 public class UserDAO extends DAO {
 
@@ -25,15 +22,14 @@ public class UserDAO extends DAO {
 
         try {
 			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO users (id, login, password, name, cpf, email, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO users (login, password, name, cpf, email, phone_number) VALUES (?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
-			statement.setString(1, UUID.randomUUID().toString());
-			statement.setString(2, user.getLogin());
-			statement.setString(3, user.getPassword());
-			statement.setString(4, user.getName());
-			statement.setString(5, user.getCpf());
-			statement.setString(6, user.getEmail());
-			statement.setString(7, user.getPhoneNumber());
+			statement.setString(1, user.getLogin());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getName());
+			statement.setString(4, user.getCpf());
+			statement.setString(5, user.getEmail());
+			statement.setString(6, user.getPhoneNumber());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,10 +48,10 @@ public class UserDAO extends DAO {
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games WHERE name = '?';";
+			String sql = "SELECT * FROM users WHERE login = '?';";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, login);
-			ResultSet result = statement.executeQuery();
+			ResultSet result = statement.executeQuery(sql);
 
             UserVO user = new UserVO(result);
             if (user.getPassword() == password) {

@@ -29,10 +29,11 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        
     }
 
-    @Override
+
+	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String operation = req.getParameter("operation");
 
@@ -63,7 +64,7 @@ public class UserController extends HttpServlet {
         RequestDispatcher dispatcher;
 
         if (res) {
-            dispatcher = req.getRequestDispatcher("./pages/index.html");
+            dispatcher = req.getRequestDispatcher("./index.html");
             
             HttpSession session = req.getSession();
             session.setAttribute("login", user);
@@ -82,8 +83,8 @@ public class UserController extends HttpServlet {
         UserVO user = dao.login(login, password);
         RequestDispatcher dispatcher;
 
-        if (user == null) {
-            dispatcher = req.getRequestDispatcher("./pages/index.html");
+        if (user != null) {
+            dispatcher = req.getRequestDispatcher("./index.html");
 
             HttpSession session = req.getSession();
             session.setAttribute("login", user);
@@ -94,6 +95,4 @@ public class UserController extends HttpServlet {
 
         dispatcher.forward(req, resp);
     }
-
-
 }

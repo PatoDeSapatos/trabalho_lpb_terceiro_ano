@@ -14,7 +14,6 @@ import jakarta.servlet.ServletException;
 import model.DAO;
 
 public class GameDAO extends DAO {
-	private DataSource dataSource;
 
     public GameDAO(DataSource dataSource) {
         super(dataSource);
@@ -77,18 +76,17 @@ public class GameDAO extends DAO {
 
         try {
 			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO games (id, userId name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO games (userId name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
-			statement.setString(1, UUID.randomUUID().toString());
-			statement.setString(2, game.getUserId());
-			statement.setString(3, game.getName());
-			statement.setString(4, game.getIconLink());
-			statement.setString(5, game.getBannerLink());
-			statement.setInt(6, 0);
-			statement.setDouble(7, game.getPrice());
-			statement.setInt(8, 0);
-			statement.setInt(9, game.getDiscount());
-			statement.setDouble(10, game.getRating());
+			statement.setString(1, game.getUserId());
+			statement.setString(2, game.getName());
+			statement.setString(3, game.getIconLink());
+			statement.setString(4, game.getBannerLink());
+			statement.setInt(5, 0);
+			statement.setDouble(6, game.getPrice());
+			statement.setInt(7, 0);
+			statement.setInt(8, game.getDiscount());
+			statement.setDouble(9, game.getRating());
 			result = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
