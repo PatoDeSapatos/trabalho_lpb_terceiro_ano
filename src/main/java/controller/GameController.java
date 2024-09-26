@@ -27,47 +27,47 @@ public class GameController extends HttpServlet {
 	}
     
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {  
         
-        String oprt = request.getParameter("operation");
+        String oprt = req.getParameter("operation");
 
         switch (oprt) {
             case "getall": 
-                getHomePage(request, response);
+                getHomePage(req, resp);
                 break;
             case "showgame":
-                getGamePage(request, response);
+                getGamePage(req, resp);
                 break;
             case "register":
-                getResgisterPage(request, response);
+                getResgisterPage(req, resp);
                 break;
             case "edit":
-                getEditPage(request, response);
+                getEditPage(req, resp);
                 break;
 
             default:
-                request.setAttribute("operacao", "Operação Inválida");
-                request.setAttribute("resultado", "");
+                req.setAttribute("operacao", "Operação Inválida");
+                req.setAttribute("resultado", "");
                 break;
         }  
 	} 
 
     @Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
-        String oprt = request.getParameter("operation").toLowerCase();
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {   
+        String oprt = req.getParameter("operation").toLowerCase();
 
         switch (oprt) {
             case "register":
-                registerGame(request, response);
+                registerGame(req, resp);
                 break;
             case "edit":
-                editGame(request, response);
+                editGame(req, resp);
                 break;
             case "delete":
-                deleteGame(request, response);
+                deleteGame(req, resp);
                 break;
             case "buy":
-                buyGame(request, response);
+                buyGame(req, resp);
                 break;
         
             default:
@@ -75,91 +75,91 @@ public class GameController extends HttpServlet {
         }
     }
 
-    private void buyGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = (String) request.getParameter("game");
+    private void buyGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = (String) req.getParameter("game");
         GameVO game = dao.getGameById(id);
 
         dao.buy(game);
 
-        request.setAttribute("gameInfo", game);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gamepage.jsp");
-		dispatcher.forward(request, response);
+        req.setAttribute("gameInfo", game);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/gamepage.jsp");
+		dispatcher.forward(req, resp);
     }
 
-    private void deleteGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = (String) request.getParameter("gameId");
+    private void deleteGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = (String) req.getParameter("gameId");
         boolean resultado = dao.delete(id);
 
-        request.setAttribute("result", resultado);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
+        req.setAttribute("result", resultado);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("index.html");
+		dispatcher.forward(req, resp);
     }
 
-    private void editGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("gameId");
-        String name = request.getParameter("name");
-		String iconLink = request.getParameter("iconLink");
-		String bannerLink = request.getParameter("bannerLink");
-		double price = Double.parseDouble(request.getParameter("price"));
-		int discount = Integer.parseInt(request.getParameter("discount"));
-		double rating = Double.parseDouble(request.getParameter("rating"));
+    private void editGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("gameId");
+        String name = req.getParameter("name");
+		String iconLink = req.getParameter("iconLink");
+		String bannerLink = req.getParameter("bannerLink");
+		double price = Double.parseDouble(req.getParameter("price"));
+		int discount = Integer.parseInt(req.getParameter("discount"));
+		double rating = Double.parseDouble(req.getParameter("rating"));
 
         GameVO newGame = new GameVO(id, "", name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
         boolean resultado = dao.update(id, newGame);
 
-        request.setAttribute("result", resultado);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
+        req.setAttribute("result", resultado);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("index.html");
+		dispatcher.forward(req, resp);
     }
 
-    private void registerGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("userId");
-        String name = request.getParameter("name");
-		String iconLink = request.getParameter("iconLink");
-		String bannerLink = request.getParameter("bannerLink");
-        double price = Double.parseDouble( request.getParameter("price") );
-        int discount = Integer.parseInt( request.getParameter("discount") );
-        double rating = Double.parseDouble( request.getParameter("rating") );
+    private void registerGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userId = req.getParameter("userId");
+        String name = req.getParameter("name");
+		String iconLink = req.getParameter("iconLink");
+		String bannerLink = req.getParameter("bannerLink");
+        double price = Double.parseDouble( req.getParameter("price") );
+        int discount = Integer.parseInt( req.getParameter("discount") );
+        double rating = Double.parseDouble( req.getParameter("rating") );
 
         GameVO game = new GameVO("", userId, name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
         boolean resultado = dao.save(game);
 
-        request.setAttribute("result", resultado);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-		dispatcher.forward(request, response);
+        req.setAttribute("result", resultado);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("index.html");
+		dispatcher.forward(req, resp);
     }
 
-    public void getHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("games", dao.getAllGames());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/homepage.jsp");
-		dispatcher.forward(request, response);
+    public void getHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("games", dao.getAllGames());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/homepage.jsp");
+		dispatcher.forward(req, resp);
     }
 
-    private void getGamePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = (String) request.getParameter("game");
+    private void getGamePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = (String) req.getParameter("game");
 
         dao.updateGameViews(id);
         GameVO game = dao.getGameById(id);
 
-        request.setAttribute("gameInfo", game);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gamepage.jsp");
-		dispatcher.forward(request, response);
+        req.setAttribute("gameInfo", game);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/gamepage.jsp");
+		dispatcher.forward(req, resp);
     }
 
-    private void getResgisterPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("operation", "register");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gameForm.jsp");
-        dispatcher.forward(request, response);
+    private void getResgisterPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("operation", "register");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/gameForm.jsp");
+        dispatcher.forward(req, resp);
     }
 
-    private void getEditPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String gameId = (String) request.getParameter("game");
-        request.setAttribute("game", dao.getGameById(gameId));
-        request.setAttribute("operation", "edit");
+    private void getEditPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String gameId = (String) req.getParameter("game");
+        req.setAttribute("game", dao.getGameById(gameId));
+        req.setAttribute("operation", "edit");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/gameForm.jsp");
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/gameForm.jsp");
+        dispatcher.forward(req, resp);
     }
 }

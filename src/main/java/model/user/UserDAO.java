@@ -42,21 +42,42 @@ public class UserDAO extends DAO {
         return result == 1;
     }
 
-    public UserVO login(String login, String password) {
+	public boolean delete(String id) {
+		Connection conexao = null;
+		PreparedStatement statement = null;
+		int result;
+
+		try {
+			conexao = dataSource.getConnection();
+			String sql = "DELETE FROM users WHERE id = ?;";
+			statement = conexao.prepareStatement(sql);
+			statement.setString(1, id);
+			result = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			result = 0;
+		} finally {
+			closeConnection(conexao, statement);
+		}
+
+		return result == 1;
+	}
+
+    public UserVO getUserByLogin(String login) {
 		Connection conexao = null;
 		PreparedStatement statement = null;
 
 		try {
 			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM users WHERE login = '?';";
+			String sql = "SELECT * FROM users WHERE login = ?;";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, login);
-			ResultSet result = statement.executeQuery(sql);
+			ResultSet result = statement.executeQuery();
 
-            UserVO user = new UserVO(result);
-            if (user.getPassword() == password) {
-                return user;
-            }
+			if (result.next()) {
+				UserVO user = new UserVO(result);
+				return user;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -66,4 +87,32 @@ public class UserDAO extends DAO {
 
         return null;
     }
+
+	public UserVO getUserById(String id) {
+		Connection conexao = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		UserVO user = null;
+
+		try {
+			conexao = dataSource.getConnection();
+			String sql = "SELECT * FROM users WHERE id = ?;";
+			statement = conexao.prepareStatement(sql);
+			statement.setString(1, id);
+			result = statement.executeQuery();
+
+			while (result.next()) {
+				user = new UserVO(result);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection(conexao, statement);
+		}
+
+		return user;
+	}
+
 }

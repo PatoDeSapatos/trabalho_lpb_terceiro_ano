@@ -29,8 +29,18 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String operation = req.getParameter("operation");
+
+        switch (operation) {
+            case "getUserPage":
+                getUserPage(req, resp);
+                break;
         
+            default:
+                break;
+        }    
     }
+
 
 
 	@Override
@@ -56,7 +66,7 @@ public class UserController extends HttpServlet {
         String name = req.getParameter("name");
         String cpf = req.getParameter("cpf");
         String email = req.getParameter("email");
-        String phoneNumber = req.getParameter("phoneNumber");
+        String phoneNumber = req.getParameter("tel");
         
         UserVO user = new UserVO(login, password, name, cpf, email, phoneNumber);
         boolean res = dao.register(user);
@@ -69,8 +79,8 @@ public class UserController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("login", user);
         } else {
-            req.setAttribute("error", true);
-            dispatcher = req.getRequestDispatcher("./pages/userForm.html");
+            req.setAttribute("error", "nome de usuário já existe.");
+            dispatcher = req.getRequestDispatcher("./pages/userForm.jsp");
         }
 
         dispatcher.forward(req, resp);
@@ -80,19 +90,27 @@ public class UserController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        UserVO user = dao.login(login, password);
+        UserVO user = dao.getUserByLogin(login);
         RequestDispatcher dispatcher;
 
-        if (user != null) {
+        if(user != null && password.equals(user.getPassword())) {
             dispatcher = req.getRequestDispatcher("./index.html");
-
             HttpSession session = req.getSession();
             session.setAttribute("login", user);
         } else {
-            req.setAttribute("error", true);
-            dispatcher = req.getRequestDispatcher("./pages/userForm.html"); 
+            req.setAttribute("error", "nome de usuário ou senha incorretos.");
+            dispatcher = req.getRequestDispatcher("./pages/userForm.jsp"); 
         }
 
         dispatcher.forward(req, resp);
     }
+    
+	private void getUserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String login = (String) req.getParameter("login");
+        UserVO user = dao.getUserByLogin(login);
+
+        req.setAttribute("userInfo", user);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/userpage.jsp");
+		dispatcher.forward(req, resp);
+	}
 }

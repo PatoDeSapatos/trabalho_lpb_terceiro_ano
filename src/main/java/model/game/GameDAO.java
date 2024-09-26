@@ -76,7 +76,7 @@ public class GameDAO extends DAO {
 
         try {
 			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO games (userId name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO games (userId, name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			statement = conexao.prepareStatement(sql);
 			statement.setString(1, game.getUserId());
 			statement.setString(2, game.getName());

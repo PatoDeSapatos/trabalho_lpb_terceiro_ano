@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="model.game.GameVO"
+    import="model.game.GameVO, model.user.UserVO"
 %> 
 
 <%
     String operation = (String) request.getAttribute("operation");
     String displayOperation = "";
     GameVO game = null;
+    UserVO user = (UserVO) session.getAttribute("login");
 
     if ( operation.equals("edit") ) {
         game = (GameVO) request.getAttribute("game");
@@ -37,6 +38,7 @@
 
     <form method="POST" action="GameController" class="wrapper">
         <input type="hidden" name="gameId" value="<%= game.getId() %>" />
+        <input type="hidden" name="userId" value="<%= user.getId() %>" />
 
         <h1><%= displayOperation %> Seu Jogo: </h1>
         <div class="input-box">

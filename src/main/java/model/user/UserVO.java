@@ -84,5 +84,9 @@ public class UserVO {
         this.phoneNumber = phoneNumber;
     }
 
-    
+    @Override
+    public String toString() {
+        return "UserVO [id=" + id + ", login=" + login + ", password=" + password + ", name=" + name + ", cpf=" + cpf
+                + ", email=" + email + ", phoneNumber=" + phoneNumber + "]";
+    }
 }

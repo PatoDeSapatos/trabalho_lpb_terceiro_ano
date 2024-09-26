@@ -95,7 +95,7 @@ header {
     justify-content: space-between;
     align-items: center;
     top: 0;
-    width: 100%;
+    width: 100vw;
     padding: 2em 5em;
 }
 
