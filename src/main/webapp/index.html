@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Voos</title>
+</head>
+<body>
+    <form action="#">
+
+        <div class="field-wrapper">
+            <div class="field-box">
+                <label for="origem">Origem: </label>
+                <select name="origem" id="origem">
+                    <option value="gru">Guarulhos</option>
+                    <option value="cgh">Congonhas</option>
+                    <option value="bsb">Brasília</option>
+                    <option value="gig">Galeão</option>
+                    <option value="vcp">Viracopos</option>
+                </select>
+            </div>
+
+            <div class="field-box">
+                <label for="destino">Destino: </label>
+                <select name="destino" id="destino">
+                    <option value="gru">Guarulhos</option>
+                    <option value="cgh">Congonhas</option>
+                    <option value="bsb">Brasília</option>
+                    <option value="gig">Galeão</option>
+                    <option value="vcp">Viracopos</option>
+                </select>
+            </div>
+
+            <div class="field-box">
+                <label for="dataIda">Data de Ida: </label>
+                <input type="date" name="dataIda" id="dataIda">
+            </div>
+
+            <div class="field-box">
+                <label for="dataVolta">Data de Volta: </label>
+                <input type="date" name="dataIda" id="dataIda">
+            </div>
+        </div>
+
+        <div class="field-box">
+            <label for="pessoas">Número de Pessoas: </label>
+            <input type="number" name="pessoas" id="pessoas">
+        </div>
+
+        <button type="submit" name="operacao" value="consultar">Procurar Viagem</button>
+    </form>
+</body>
+</html>
