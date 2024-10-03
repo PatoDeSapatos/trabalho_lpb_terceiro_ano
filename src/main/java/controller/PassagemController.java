@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
-
 import jakarta.annotation.Resource;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -17,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Passagem;
 import model.PassagemDAO;
 import model.Pesquisa;
+
 
 @WebServlet("PassagemController")
 public class PassagemController extends HttpServlet {
