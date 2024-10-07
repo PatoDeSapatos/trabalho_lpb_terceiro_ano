@@ -1,39 +1,51 @@
 @import url(layout.css);
 
 body {
-    width: 100vw;
-    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    padding: 0 1em;
+}
+
+.header {
+    padding: 1em 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--dark-blue);
 }
 
-.wrapper {
-    color: var(--yellow);
-    font-family: "Poppins", sans-serif;
-}
-
-.wrapper h2 {
-	text-transform: capitalize;
+h1 {
+    margin: 0;
 }
 
 a {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-    text-decoration: none;
-    color: black;
+    font-size: 1.2em;
 }
 
-ul {
-	text-align: center
+.wrapper {
+    min-width: fit-content;
+    max-width: 500px;
+    border: 2px solid rgb(146, 2, 2);
+    box-shadow: 4px 3px 7px 0px rgba(0, 0, 0, 0.103);
+    border-radius: 5px;
+    cursor: default;
 }
 
-li {
-	list-style-type: none;
-	font-weight: 500;
-	font-size: 1.1em;
+.passagem-box {
+    display: flex;
+    gap: 2em;
+    padding: 1.4em;
+    font-size: 1.2em;
+    justify-content: space-around;
+}
+
+.passagem-box div {
+    display: flex;
+    flex-direction: column;
+}
+
+span {
+    font-weight: 700;
+}
+
+p {
+    width: 100%;
+    text-align: center;
 }

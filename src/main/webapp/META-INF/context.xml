@@ -1,3 +1,9 @@
-<Context>
-<Resource name="gamearchive" auth="Container" type="javax.sql.DataSource" username="gamearchive" password="8GY20I6Q3M" driverClassName="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://localhost:3306/gamearchive"/>
-</Context>
+<context>
+<Resource 
+    name="tarefaVoos"
+	auth="Container" type="javax.sql.DataSource"
+	username="tarefaVoos" password="voos1234"
+	driverClassName="com.mysql.cj.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/tarefaVoos"
+/>
+</context>
