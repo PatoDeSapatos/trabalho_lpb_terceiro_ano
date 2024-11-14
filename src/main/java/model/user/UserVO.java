@@ -3,7 +3,14 @@ package model.user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class UserVO {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String login;
     private String password;
@@ -39,6 +46,10 @@ public class UserVO {
         this.cpf = result.getString(5);
         this.email = result.getString(6);
         this.phoneNumber = result.getString(7);
+    }
+      
+    public UserVO() {
+    	super();
     }
 
     public String getId() {

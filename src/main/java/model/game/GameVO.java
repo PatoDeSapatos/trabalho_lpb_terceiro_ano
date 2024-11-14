@@ -1,11 +1,21 @@
 package model.game;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import model.user.UserVO;
+
+@Entity
 public class GameVO {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    private String userId;
+	
+	@ManyToOne(optional = false)
+    private UserVO user;
     private String name;
     private String iconLink;
     private String bannerLink;
@@ -15,10 +25,10 @@ public class GameVO {
     private int discount;
     private double rating;
 
-    public GameVO(String id, String userId, String name, String iconLink, String bannerLink, int views, double price, int purchases,
+    public GameVO(String id, UserVO user, String name, String iconLink, String bannerLink, int views, double price, int purchases,
             int discount, double rating) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.name = name;
         this.iconLink = iconLink;
         this.bannerLink = bannerLink;
@@ -27,19 +37,6 @@ public class GameVO {
         this.purchases = purchases;
         this.discount = discount;
         this.rating = rating;
-    }
-
-    public GameVO(ResultSet result) throws SQLException {
-        this.id = result.getString(1); 
-        this.userId = result.getString(2); 
-        this.name = result.getString(3);
-        this.iconLink = result.getString(4);
-        this.bannerLink = result.getString(5);
-        this.views = result.getInt(6);
-        this.price = result.getDouble(7);
-        this.purchases = result.getInt(8);
-        this.discount = result.getInt(9);
-        this.rating = result.getDouble(10);
     }
 
     public GameVO() {
@@ -62,11 +59,11 @@ public class GameVO {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserVO getUserId() {
+        return user;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(UserVO user) {
+        this.user = user;
     }
 
     public String getIconLink() {

@@ -3,15 +3,18 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
 
-import javax.sql.DataSource;
 
 public abstract class DAO {
-    protected DataSource dataSource;
+    protected EntityManagerFactory emf;
 
-    public DAO(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public DAO(EntityManagerFactory emf) {
+        super();
+        this.emf = emf;
     }
+    
+    
 
     protected void closeConnection(Connection conexao, PreparedStatement statement) {
         try {

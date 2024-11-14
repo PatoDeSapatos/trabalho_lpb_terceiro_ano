@@ -6,208 +6,173 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.UUID;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import jakarta.servlet.ServletException;
 import model.DAO;
+import model.user.UserVO;
 
 public class GameDAO extends DAO {
 
-    public GameDAO(DataSource dataSource) {
-        super(dataSource);
+    public GameDAO(EntityManagerFactory emf) {
+        super(emf);
     }
-
+	
+	@SuppressWarnings("unchecked")
 	public ArrayList<GameVO> getGameByName(String name) {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		ArrayList<GameVO> search = new ArrayList<GameVO>();
+		EntityManager em = emf.createEntityManager();
+		ArrayList<GameVO> games = new ArrayList<GameVO>();
 
 		try {
-			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games WHERE name LIKE '%?%';";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, name);
-			result = statement.executeQuery();
+			Query query = em.createQuery("FROM " + GameVO.class.getName() + "WHERE name = :n");
+			query.setParameter("n", name);
+			games = (ArrayList<GameVO>) query.getResultList();
 			
-			while (result.next()) {
-        		search.add(new GameVO(result));
-			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			em.close();
 		}
-		finally {
-			closeConnection(conexao, statement);
-		}
-        return search;
+		
+        return games;
 	}
-
-	public ArrayList<GameVO> getAllGames() throws ServletException, IOException {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		ArrayList<GameVO> search = new ArrayList<GameVO>();
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<GameVO> getAllGames() {
+		EntityManager em = emf.createEntityManager();
+		ArrayList<GameVO> games = new ArrayList<GameVO>();
 
 		try {
-			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games;";
-			statement = conexao.prepareStatement(sql);
-			result = statement.executeQuery();
+			Query query = em.createQuery("FROM " + GameVO.class.getName());
+			games = (ArrayList<GameVO>) query.getResultList();
 			
-			while (result.next()) {
-        		search.add(new GameVO(result));
-			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
-			closeConnection(conexao, statement);
+			em.close();
 		}
-
-		return search;
+		
+        return games;
 	}
 
     public boolean save(GameVO game) {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		int result;
+		EntityManager em = emf.createEntityManager();
 
         try {
-			conexao = dataSource.getConnection();
-			String sql = "INSERT INTO games (userId, name, iconLink, bannerLink, views, price, purchases, discount, rating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, game.getUserId());
-			statement.setString(2, game.getName());
-			statement.setString(3, game.getIconLink());
-			statement.setString(4, game.getBannerLink());
-			statement.setInt(5, 0);
-			statement.setDouble(6, game.getPrice());
-			statement.setInt(7, 0);
-			statement.setInt(8, game.getDiscount());
-			statement.setDouble(9, game.getRating());
-			result = statement.executeUpdate();
-		} catch (SQLException e) {
+			em.getTransaction().begin();
+			em.persist(game);
+			em.getTransaction().commit();
+			
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
-			result = 0;
+			return false;
 		}
 		finally {
-			closeConnection(conexao, statement);
+			em.close();
 		}
 
-        return result == 1;
     }
 
 	public boolean delete(String id) {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		int result;
+		EntityManager em = emf.createEntityManager();
 
 		try {
-			conexao = dataSource.getConnection();
-			String sql = "DELETE FROM games WHERE id = ?;";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, id);
-			result = statement.executeUpdate();
-		} catch (SQLException e) {
+			GameVO game = em.find(GameVO.class, id);
+			em.getTransaction().begin();
+			em.remove(game);
+			em.getTransaction().commit();
+			return true;
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			result = 0;
-		} finally {
-			closeConnection(conexao, statement);
-		}
+			return false;
 
-		return result == 1;
+		} finally {
+			em.close();
+
+		}
 	}
 
 	public boolean update(String id, GameVO newGame) throws ServletException, IOException {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		int result;
+		EntityManager em = emf.createEntityManager();
 
 		try {
-			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET name = ?, iconLink = ?, bannerLink = ?, price = ?, discount = ?, rating = ? WHERE id = ?;";
-			statement = conexao.prepareStatement(sql);
-
-			statement.setString(1, newGame.getName());
-			statement.setString(2, newGame.getIconLink());
-			statement.setString(3, newGame.getBannerLink());
-			statement.setDouble(4, newGame.getPrice());
-			statement.setInt(5, newGame.getDiscount());
-			statement.setDouble(6, newGame.getRating());
-			statement.setString(7, id);
-
-			result = statement.executeUpdate();
-		} catch (SQLException e) {
+            newGame.setId(id);
+			em.getTransaction().begin();
+			em.merge(newGame);
+			em.getTransaction().commit();
+			return true;
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			result = 0;
-		}
-		finally {
-			closeConnection(conexao, statement);
-		}
+			return false;
 
-		return result == 1;
+		} finally {
+			em.close();
+
+		}
 	}
-
-    public void updateGameViews(String id) throws ServletException, IOException {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-
+	
+	@SuppressWarnings("unchecked")
+    public boolean updateGameViews(String id) {
+		EntityManager em = emf.createEntityManager();
 		try {
-			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET views = views + 1 WHERE id = ?;";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, id);
-			statement.executeUpdate();
-		} catch (SQLException e) {
+  			//Primeira Tentativa
+			GameVO game = em.find(GameVO.class, id);
+			game.setViews(game.getViews()+1);
+			em.getTransaction().begin();
+			em.merge(game);
+			em.getTransaction().commit();
+			
+			//Plano de contencao
+//			Query query = em.createQuery("UPDATE " + GameVO.class.getName() + " SET views = :v WHERE id = :i");
+//			query.setParameter("v", game.getViews()+1);
+//			query.setParameter("i", id);
+//			em.getTransaction().begin();
+//			query.executeUpdate();
+//			em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
+		} finally {
+			em.close();
 		}
     }
 
 	public GameVO getGameById(String gameId) {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		GameVO game = null;
-
-		try {
-			conexao = dataSource.getConnection();
-			String sql = "SELECT * FROM games WHERE id = ?;";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, gameId);
-			result = statement.executeQuery();
-
-			while (result.next()) {
-				game = new GameVO(result);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
-			closeConnection(conexao, statement);
-		}
-
-		return game;
+		EntityManager em = emf.createEntityManager();
+		
+    	try {
+    		return em.find(GameVO.class, gameId);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	} finally {
+			em.close();
+    	}
 	}
-
+			
 	public void buy(GameVO game) {
-		Connection conexao = null;
-		PreparedStatement statement = null;
-
-		String id = game.getId();
-		int purchases = game.getPurchases() + 1;
-		game.setPurchases(purchases);
-
-		try {
-			conexao = dataSource.getConnection();
-			String sql = "UPDATE games SET purchases = purchases + 1 WHERE id = ?;";
-			statement = conexao.prepareStatement(sql);
-			statement.setString(1, id);
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		EntityManager em = emf.createEntityManager();
+		
+    	try {
+    		GameVO gameVo = em.find(GameVO.class, game.getId());
+    		int newPurchases = gameVo.getPurchases() + 1;
+    		gameVo.setPurchases(newPurchases);
+			em.getTransaction().begin();
+			em.merge(game);
+			em.getTransaction().commit();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return;
+    	} finally {
+			em.close();
+    	}
 	}
 }
