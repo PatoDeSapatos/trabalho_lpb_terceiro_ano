@@ -1,0 +1,192 @@
+@import url(layout.css);
+
+body {
+    background-color: var(--dark-blue);
+}
+
+header {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+nav {
+    height: 100%;
+}
+
+nav a {
+    text-decoration: none;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a svg {
+    fill: var(--white);
+    transition: .5s;
+}
+
+nav a:hover svg {
+    fill: var(--green);
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    padding: 2em;
+}
+
+.game-info .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-action  {
+    display: flex;
+    flex-direction: column;
+    gap: .7em;
+}
+
+.rate-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rate-box > * {
+    fill: var(--yellow);
+}
+
+.game-info h1 {
+    color: var(--yellow);
+    font-family: "Poppins";
+    
+}
+
+.buy-section, .price-box, .price-value {
+    display: flex;
+}
+
+.buy-section {
+    font-family: "Poppins";
+    font-weight: 700;
+    position: relative;
+    height: 5.5em;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    padding: 1em;
+    border-radius: 5px;
+}
+
+.price-box {
+    height: 100%;
+    align-items: center;
+    gap: .3em;
+}
+
+.price-box > *, .price-values > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1em .5em 1em 1em;
+    background-color: red;
+}
+
+.price-box form {
+    padding: 0;
+}
+
+.price-values {
+    flex-direction: row;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.discount {
+    background-color: var(--green);
+    color: var(--white);
+    padding: 0 1em;
+}
+
+.prices {
+    background-color: var(--yellow);
+    box-shadow: inset rgba(0, 0, 0, 0.200) 0 0 50px -5px;
+    align-items: end;
+}
+
+.full-price {
+    font-size: .8em;
+    text-decoration: line-through;
+    color: var(--white);
+    opacity: .8;
+}
+
+.price {
+    color: var(--green);
+}
+
+.buy-section button {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--green);
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--white);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.buy-section button:hover {
+    background-color: var(--salmon);
+}
+
+.buy-section button:active {
+    background-color: var(--red);
+}
+
+.game-info figure {
+    position: relative;
+    gap: 1em;
+    width: 700px;
+    height: auto;
+}
+
+.game-info figure img {
+    width: 100%;
+    height: auto;
+}
+
+.game-info .aditional-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: var(--yellow);
+    font-size: .8em;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+span.rate {
+    text-transform: capitalize;
+}
+
+span.rate.alta, span.rate.alto {
+    color: var(--green);
+}
+
+span.rate.mediana, span.rate.mediano {
+    color: var(--orange);
+}
+
+span.rate.baixa, span.rate.baixo {
+    color: var(--red);
+}
