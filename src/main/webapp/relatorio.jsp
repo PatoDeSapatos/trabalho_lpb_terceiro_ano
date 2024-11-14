@@ -16,7 +16,7 @@
     <div>
         <div class="header">
             <h1>Passagens </h1>
-            <a href="./index.jsp">Voltar</a>
+            <a href="./index.html">Voltar</a>
         </div>
 
         <h2>Ida: </h2>

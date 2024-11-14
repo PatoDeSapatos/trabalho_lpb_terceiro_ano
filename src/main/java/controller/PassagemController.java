@@ -1,10 +1,11 @@
 package controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Passagem;
 import model.PassagemDAO;
+import model.Pesquisa;
 
 
 @WebServlet("/PassagemController")
@@ -71,23 +73,18 @@ public class PassagemController extends HttpServlet {
         
         ArrayList<Passagem> pIda = dao.acharPassagem(origem, destino, dataIda, nPessoas);
         ArrayList<Passagem> pVolta = dao.acharPassagem(destino, origem, dataVolta, nPessoas);
+        Pesquisa pesquisa = new Pesquisa(origem, destino, dataIda, dataVolta, nPessoas);
         
-        setCookie(resp, "origem", origem);
-        setCookie(resp, "destino", destino);
-        setCookie(resp, "dataIda", dataIda);
-        setCookie(resp, "dataVolta", dataVolta);
-        setCookie(resp, "nPessoas", Integer.toString(nPessoas));
+        System.out.println(pIda);
+        
+		Cookie cookie = new Cookie("pesquisa", URLEncoder.encode( pesquisa.toString(), "utf-8" ));
+		cookie.setMaxAge(60*60*24*365);
+		resp.addCookie(cookie);
 		
         req.setAttribute("passagemIda", pIda);
         req.setAttribute("passagemVolta", pVolta);
         
         RequestDispatcher dispatcher = req.getRequestDispatcher("./relatorio.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    private void setCookie(HttpServletResponse resp, String name, String value) throws UnsupportedEncodingException {
-		Cookie cookie = new Cookie(name, URLEncoder.encode( value, "utf-8" ));
-		cookie.setMaxAge(60*60*24*365);
-		resp.addCookie(cookie);
     }
 }
