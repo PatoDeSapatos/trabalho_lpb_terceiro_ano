@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class UserVO {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     private String login;
     private String password;
     private String name;
@@ -19,7 +19,7 @@ public class UserVO {
     private String email;
     private String phoneNumber;
 
-    public UserVO(String id, String login, String password, String name, String cpf, String email, String phoneNumber) {
+    public UserVO(int id, String login, String password, String name, String cpf, String email, String phoneNumber) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -39,7 +39,7 @@ public class UserVO {
     }
 
       public UserVO(ResultSet result) throws SQLException {
-        this.id = result.getString(1); 
+        this.id = result.getInt(1); 
         this.login = result.getString(2);
         this.password = result.getString(3);
         this.name = result.getString(4);
@@ -52,10 +52,10 @@ public class UserVO {
     	super();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getLogin() {

@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 import jakarta.annotation.Resource;
@@ -18,13 +20,13 @@ import model.user.UserDAO;
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
 
-	@Resource(name="gamearchive")
-	private DataSource dataSource;
+	static final long serialVersionUID = 1L;
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("gamearchive");
     private UserDAO dao;
     
 	@Override
 	public void init() throws ServletException {
-		dao = new UserDAO(dataSource);
+		dao = new UserDAO(emf);
 	}
 
     @Override

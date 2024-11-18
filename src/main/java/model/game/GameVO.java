@@ -12,7 +12,7 @@ import model.user.UserVO;
 public class GameVO {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
 	
 	@ManyToOne(optional = false)
     private UserVO user;
@@ -25,7 +25,7 @@ public class GameVO {
     private int discount;
     private double rating;
 
-    public GameVO(String id, UserVO user, String name, String iconLink, String bannerLink, int views, double price, int purchases,
+    public GameVO(int id, UserVO user, String name, String iconLink, String bannerLink, int views, double price, int purchases,
             int discount, double rating) {
         this.id = id;
         this.user = user;
@@ -40,7 +40,7 @@ public class GameVO {
     }
 
     public GameVO() {
-        this.id = ""; 
+        this.id = 0; 
         this.name = "";
         this.iconLink = "";
         this.bannerLink = "";
@@ -52,10 +52,10 @@ public class GameVO {
     }
     
     //Getters and Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

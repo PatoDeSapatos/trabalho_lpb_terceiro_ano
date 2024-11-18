@@ -98,7 +98,7 @@ public class GameDAO extends DAO {
 		}
 	}
 
-	public boolean update(String id, GameVO newGame) throws ServletException, IOException {
+	public boolean update(int id, GameVO newGame) throws ServletException, IOException {
 		EntityManager em = emf.createEntityManager();
 
 		try {
@@ -118,8 +118,7 @@ public class GameDAO extends DAO {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-    public boolean updateGameViews(String id) {
+    public boolean updateGameViews(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
   			//Primeira Tentativa
@@ -145,7 +144,7 @@ public class GameDAO extends DAO {
 		}
     }
 
-	public GameVO getGameById(String gameId) {
+	public GameVO getGameById(int gameId) {
 		EntityManager em = emf.createEntityManager();
 		
     	try {
