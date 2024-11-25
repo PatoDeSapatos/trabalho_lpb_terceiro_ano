@@ -45,7 +45,7 @@
                     out.println("<div class='game-section'>");
                         out.println("<figure>");
                             out.println("<div class='circular-shadow'></div>");
-                            out.println("<a href='GameController?operation=showgame&game=" + game.getId() + "' />");
+                            out.println("<a href='GameController?operation=showgame&game=" + Integer.toString( game.getId() ) + "' />");
                                 out.println("<img src='" + game.getIconLink() + "' alt='game-icon' />");
                                 out.println("<figcaption>");
                                     out.println("<p class='discount'>-" + game.getDiscount() + "%</p>");

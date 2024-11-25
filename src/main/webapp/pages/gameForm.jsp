@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false" %>
 
-<c:set property="displayOperation" value="Edite" />
+<c:set var="displayOperation" value="Edite " />
 <c:if test='${operation == "register"}' >
-	<c:set property="game" value='${new GameVO()}' />
-	<c:set property="displayOperation" value="Registre" />
+	<c:set var="displayOperation" value="Registre " />
 </c:if>
 
 <!DOCTYPE html>
@@ -17,10 +17,7 @@
 <body>
 	<header>
 		<nav>
-			<a href="./index.html"> <svg xmlns="http://www.w3.org/2000/svg"
-					height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368">
-					<path
-						d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z" /></svg>
+			<a href="./index.html"> <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z" /></svg>
 			</a>
 		</nav>
 		<h1>Game Archive</h1>
