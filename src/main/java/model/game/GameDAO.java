@@ -165,7 +165,7 @@ public class GameDAO extends DAO {
     		int newPurchases = gameVo.getPurchases() + 1;
     		gameVo.setPurchases(newPurchases);
 			em.getTransaction().begin();
-			em.merge(game);
+			em.merge(gameVo);
 			em.getTransaction().commit();
     	} catch (Exception e) {
     		e.printStackTrace();
