@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,16 +21,14 @@
     </header>
 
     <form action="../UserController" method="post" id="register-form" class="active">
-        <%
-            String error = (String) request.getAttribute("error");
+        <c:set var="error" value="${requestScope.error}" />
 
-            if (error != null && error != "") {
-                out.println("<div class='error-message'>");
-                    out.println("<h2>Erro!</h2>");
-                    out.println("<p>O nome de usuário já existe.</p>");
-                out.println("</div>");
-            }
-        %>
+        <c:if test="${error != null && !error.isEmpty()}">
+            <div class='error-message'>
+                <h2>Erro!</h2>
+                <p>O nome de usuário já existe.</p>
+            </div>
+        </c:if>
 
         <h1>Registre-se</h1>
 
@@ -38,24 +36,24 @@
             <div class="form-section">
                 <div>
                     <label for="login">Nome de Usuário:</label>
-                    <input type="text" id="login" name="login">
+                    <input type="text" id="login" name="login" required>
                 </div>
 
                 <div>
                     <label for="name">Nome Completo:</label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" required>
                 </div>
             </div>
             
             <div class="form-section">
                 <div>
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email" required>
                 </div>
 
                 <div>
                     <label for="password">Senha:</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="password" required>
                 </div>
             </div>
 
