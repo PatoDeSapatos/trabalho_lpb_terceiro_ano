@@ -88,7 +88,7 @@ public class GameController extends HttpServlet {
 	}
 
 	private void deleteGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = (String) req.getParameter("gameId");
+		Integer id = Integer.parseInt(req.getParameter("gameId"));
 		boolean resultado = dao.delete(id);
 
 		req.setAttribute("result", resultado);
@@ -121,7 +121,7 @@ public class GameController extends HttpServlet {
 	}
 
 	private void registerGame(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserVO userId = (UserVO) req.getSession().getAttribute("login");
+		UserVO user = (UserVO) req.getSession().getAttribute("login");
 		String name = req.getParameter("name");
 		String iconLink = req.getParameter("iconLink");
 		String bannerLink = req.getParameter("bannerLink");
@@ -129,7 +129,7 @@ public class GameController extends HttpServlet {
 		int discount = Integer.parseInt(req.getParameter("discount"));
 		double rating = Double.parseDouble(req.getParameter("rating"));
 
-		GameVO game = new GameVO(0, userId, name, iconLink, bannerLink, discount, price, discount, discount, rating);
+		GameVO game = new GameVO(0, user, name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
 		boolean resultado = dao.save(game);
 
@@ -139,7 +139,10 @@ public class GameController extends HttpServlet {
 	}
 
 	public void getHomePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("games", dao.getAllGames());
+		req.setAttribute("allGames", dao.getAllGames());
+		if((UserVO) req.getSession().getAttribute("login") != null) {
+			req.setAttribute("userGames", dao.getAllUserGames((UserVO) req.getSession().getAttribute("login")));
+		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/homepage.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -155,8 +158,7 @@ public class GameController extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 
-	private void getResgisterPage(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void getResgisterPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("operation", "register");
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/gameForm.jsp");
 		dispatcher.forward(req, resp);

@@ -59,10 +59,10 @@ public class GameVO {
         this.id = id;
     }
 
-    public UserVO getUserId() {
+    public UserVO getUser() {
         return user;
     }
-    public void setUserId(UserVO user) {
+    public void setUser(UserVO user) {
         this.user = user;
     }
 

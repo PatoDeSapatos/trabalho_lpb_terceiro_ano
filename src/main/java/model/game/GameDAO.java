@@ -1,14 +1,10 @@
 package model.game;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import jakarta.servlet.ServletException;
@@ -27,7 +23,7 @@ public class GameDAO extends DAO {
 		ArrayList<GameVO> games = new ArrayList<GameVO>();
 
 		try {
-			Query query = em.createQuery("FROM " + GameVO.class.getName() + "WHERE name = :n");
+			Query query = em.createQuery("FROM " + GameVO.class.getName() + " WHERE name = :n");
 			query.setParameter("n", name);
 			games = (ArrayList<GameVO>) query.getResultList();
 			
@@ -58,6 +54,26 @@ public class GameDAO extends DAO {
 		
         return games;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<GameVO> getAllUserGames(UserVO user) {
+		EntityManager em = emf.createEntityManager();
+		ArrayList<GameVO> games = new ArrayList<GameVO>();
+		
+		try {
+			Query query = em.createQuery("FROM " + GameVO.class.getName() + " WHERE user_id = :u");
+			query.setParameter("u", user);
+			games = (ArrayList<GameVO>) query.getResultList();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			em.close();
+		}
+
+		return games;
+	}
 
     public boolean save(GameVO game) {
 		EntityManager em = emf.createEntityManager();
@@ -78,7 +94,7 @@ public class GameDAO extends DAO {
 
     }
 
-	public boolean delete(String id) {
+	public boolean delete(int id) {
 		EntityManager em = emf.createEntityManager();
 
 		try {
