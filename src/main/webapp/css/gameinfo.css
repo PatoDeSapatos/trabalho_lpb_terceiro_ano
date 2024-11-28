@@ -77,7 +77,7 @@ nav a:hover svg {
     height: 5.5em;
     justify-content: center;
     align-items: center;
-    background-color: var(--white);
+    background-color: var(--red);
     padding: 1em;
     border-radius: 5px;
 }
@@ -112,12 +112,14 @@ nav a:hover svg {
     background-color: var(--green);
     color: var(--white);
     padding: 0 1em;
+    border-radius: 5px 0px 0px 5px
 }
 
 .prices {
     background-color: var(--yellow);
     box-shadow: inset rgba(0, 0, 0, 0.200) 0 0 50px -5px;
     align-items: end;
+    border-radius: 0px 5px 5px 0px;
 }
 
 .full-price {

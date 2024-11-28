@@ -26,7 +26,7 @@
                 </c:when>
 
                 <c:otherwise>
-                    <a href='./pages/userForm.jsp'><svg class='icon add-button' xmlns='http://www.w3.org/2000/svg' height='2.5em' viewBox='0 -960 960 960' width='2.5em' fill='#FFFFFF'><path d='M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z'/></svg></a>
+                    <a href='./pages/userForm.jsp'><svg class='icon add-button' xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 -960 960 960" width="2.5em" fill="#FFFFFF"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg></a>
                 </c:otherwise>
             </c:choose>
 
@@ -38,11 +38,6 @@
         <h1>Game Archive</h1>
     </header>
 
-    <c:choose>
-        <c:when test="${user != null}">
-
-        </c:when>
-    </c:choose>
     <div class="recent-games-wrapper">
         <c:if test="${user != null}">
             <c:if test="${userGames.size() > 0}">
@@ -75,27 +70,28 @@
             </c:if>
         </c:if>
 
+        <c:if test="${allGames.size() > 0}">
         <h3>Todos os Jogos: </h3>
         <div class="games-wrapper">
-
-            <c:forEach begin="0" end="${allGames.size()-1}" varStatus="loop">
-                <c:set var="game" value="${allGames.get(loop.index)}" />
-                <div class='game-section'>
-                    <figure>
-                        <div class='circular-shadow'></div>
-                        <a href="GameController?operation=showgame&game=${game.id}">
-                            <img src='${game.iconLink}' alt='game-icon' />
-                            <figcaption>
-                                <p class='discount'> - <c:out value="${game.discount}" /> </p>
-                                <p class='full-price'>R$ <c:out value="${game.price}" /> </p>
-                                <p class='price'>R$ <c:out value="${game.discount}" /> </p>
-                            </figcaption>
-                        </a>
-                        <h3> <c:out value="${game.name}" /></h3>
-                    </figure>
-                </div>
-            </c:forEach>
-        </div>
+                <c:forEach begin="0" end="${allGames.size()-1}" varStatus="loop">
+                    <c:set var="game" value="${allGames.get(loop.index)}" />
+                    <div class='game-section'>
+                        <figure>
+                            <div class='circular-shadow'></div>
+                            <a href="GameController?operation=showgame&game=${game.id}">
+                                <img src='${game.iconLink}' alt='game-icon' />
+                                <figcaption>
+                                    <p class='discount'> - <c:out value="${game.discount}" /> </p>
+                                    <p class='full-price'>R$ <c:out value="${game.price}" /> </p>
+                                    <p class='price'>R$ <c:out value="${game.discount}" /> </p>
+                                </figcaption>
+                            </a>
+                            <h3> <c:out value="${game.name}" /></h3>
+                        </figure>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
 
     <script src="./js/index.js"></script>

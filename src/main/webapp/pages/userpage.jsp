@@ -9,14 +9,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <c:set var="user" value="${sessionScope.login}"/>
+        <link rel="stylesheet" href="../css/index.css">
         <title><c:out value="${user.name}"/></title>
     </head>
     <body>
-        <h1><c:out value="${user.name}"/></h1>
-        <p>Login: <c:out value="${user.login}"/></p>
-        <p>Senha: <c:out value="${user.password}"/></p>
-        <p>CPF: <c:out value="${user.cpf}"/></p>
-        <p>Email: <c:out value="${user.email}"/></p>
-        <p>Número de celular: <c:out value="${user.phoneNumber}"/></p>
+        <header>
+            <h1>Bem vindo <c:out class="name" value="${user.name}" /></h1>
+            <h1>Game Archive</h1>
+        </header>
+        <div class="user-wrapper">
+            <p>Login: <c:out value="${user.login}"/></p>
+            <p>Senha: <c:out value="${user.password}"/></p>
+            <p>CPF: <c:out value="${user.cpf}"/></p>
+            <p>Email: <c:out value="${user.email}"/></p>
+            <p>Número de celular: <c:out value="${user.phoneNumber}"/></p>
+        </div>
     </body>
 </html>

@@ -96,6 +96,7 @@ header {
     align-items: center;
     top: 0;
     width: 100vw;
+    height: 12vh;
     padding: 2em 5em;
 }
 

@@ -20,7 +20,7 @@
         <h1>Game Archive</h1>
     </header>
 
-    <form action="../UserController" method="post" id="register-form" class="active">
+    <form action="../UserController" method="post" id="register-form">
         <c:set var="error" value="${requestScope.error}" />
 
         <c:if test="${error != null && !error.isEmpty()}">
@@ -76,7 +76,7 @@
         </div>
     </form>
 
-    <form action="../UserController" method="post" id="login-form">
+    <form action="../UserController" method="post" id="login-form" class="active">
         <h1>Entre</h1>
 
         <div class="form-section login">

@@ -17,7 +17,7 @@
 <body>
 	<header>
 		<nav>
-			<a href="./index.html"> <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z" /></svg>
+			<a href="./index.html"> <svg class='icon add-button' xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 -960 960 960" width="2.5em" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z" /></svg>
 			</a>
 		</nav>
 		<h1>Game Archive</h1>
@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="input-box">
-			<label for="">Link do Ícone: </label> <input type="url"
+			<label for="">Link do ï¿½cone: </label> <input type="url"
 				name="iconLink" value="${game.getIconLink()}" required>
 		</div>
 
@@ -44,7 +44,7 @@
 		</div>
 
 		<div class="input-box">
-			<label for="">Preço: </label> <input type="number" name="price"
+			<label for="">Preï¿½o: </label> <input type="number" name="price"
 				step="0.01" value="${game.getPrice()}" required>
 		</div>
 
