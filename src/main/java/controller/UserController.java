@@ -35,27 +35,34 @@ public class UserController extends HttpServlet {
             case "getUserPage":
                 getUserPage(req, resp);
                 break;
+
+            case "logout":
+                logout(req, resp);
+                break;
         
             default:
+                System.out.println("GErro: operação não encontrada: " + operation);
                 break;
-        }    
-    }
-
-
-
-	@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String operation = req.getParameter("operation");
-
-        switch(operation) {
-            case "register":
+            }    
+        }
+        
+        
+        
+        @Override
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String operation = req.getParameter("operation");
+            
+            switch(operation) {
+                case "register":
                 register(req, resp);
                 break;
-            case "login":
+                
+                case "login":
                 login(req, resp);
                 break;
-            default:
-                System.out.println("Operação não encontrada: " + operation);
+                
+                default:
+                System.out.println("PErro: Operação não encontrada: " + operation);
                 break;
         }
     }
@@ -103,6 +110,12 @@ public class UserController extends HttpServlet {
         }
 
         dispatcher.forward(req, resp);
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.invalidate();
+        req.getRequestDispatcher("teste.html").forward(req, resp);
     }
     
 	private void getUserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

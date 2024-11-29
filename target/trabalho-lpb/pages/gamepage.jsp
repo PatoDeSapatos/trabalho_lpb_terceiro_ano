@@ -22,7 +22,7 @@
     <header>
         <nav>
             <a href="./index.html">
-                <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#5f6368"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF"><path d="m287-446.67 240 240L480-160 160-480l320-320 47 46.67-240 240h513v66.66H287Z"/></svg>
             </a>
         </nav>
         <h1>Game Archive</h1>
@@ -65,13 +65,27 @@
                         		<div class='discount'>- ${ gameInfo.getDiscount() } %</div>
                         	</c:if>
 
-                            <div class="prices">
-								<c:if test="${ gameInfo.getDiscount() > 0 }">
-	                        		<p class='full-price'>R$ ${gameInfo.getPrice()}</p>
-	                        	</c:if>
-                                
-                                <p class="price">R$ ${gameInfo.calcDiscount()}</p>
-                            </div>
+                            <c:choose>
+                                <c:when test="${ gameInfo.getDiscount() > 0 }">
+                                    <div class="prices disc">
+                                        <c:if test="${ gameInfo.getDiscount() > 0 }">
+                                            <p class='full-price'>R$ ${gameInfo.getPrice()}</p>
+                                        </c:if>
+                                        
+                                        <p class="price">R$ ${gameInfo.calcDiscount()}</p>
+                                    </div>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <div class="prices no-disc">
+                                        <c:if test="${ gameInfo.getDiscount() > 0 }">
+                                            <p class='full-price'>R$ ${gameInfo.getPrice()}</p>
+                                        </c:if>
+                                        
+                                        <p class="price">R$ ${gameInfo.calcDiscount()}</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <form action='GameController' method='POST'>
                             <input type="hidden" name="game" value="${gameInfo.getId()}"/>
