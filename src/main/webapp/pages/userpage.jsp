@@ -27,36 +27,15 @@
             <h1>Game Archive</h1>
         </header>
         <div class="content">
-            <div id="info" class="togglable active">
-                <div class="user-wrapper">
-                    <h2>Suas Informações</h2>
-                    <hr>
-                    <p>Login: <c:out value="${user.login}"/></p>
-                    <p>CPF: <c:out value="${user.cpf}"/></p>
-                    <p>Email: <c:out value="${user.email}"/></p>
-                    <p>Número de celular: <c:out value="${user.phoneNumber}"/></p>
-                    <button class="change-page">Editar</button>
-                </div>
-            </div>
-            
-            <div id="form" class="togglable">
-                <div class="user-wrapper">
-                    <h2>Editar Informações</h2>
-                    <hr>
-                    <form action="UserController" method="POST">
-                        <input type="text" value="${user.login}" disabled>
-                        <input type="text" value="${user.name}" name="name">
-                        <input type="text" value="${user.cpf}" name="cpf">
-                        <input type="text" value="${user.email}" disabled>
-                        <input type="text" value="${user.phoneNumber}" name="phoneNumber">
-                        <div>
-                            <input type="submit" id="button" value="Confirmar">
-                            <button class="change-page">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="user-wrapper">
+                <h2>Suas Informações</h2>
+                <hr>
+                <p>Login: <c:out value="${user.login}"/></p>
+                <p>CPF: <c:out value="${user.cpf}"/></p>
+                <p>Email: <c:out value="${user.email}"/></p>
+                <p>Número de celular: <c:out value="${user.phoneNumber}"/></p>
+                <!--<a href="pages/edituser.jsp" style="align-self: center;"><button>Editar</button></a>-->
             </div>
         </div>
-        <script src="js/userpage.js"></script>
     </body>
 </html>

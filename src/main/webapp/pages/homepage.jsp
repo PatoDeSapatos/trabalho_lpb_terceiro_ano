@@ -2,6 +2,7 @@
 <%@ page import="model.game.GameVO, model.user.UserVO, java.util.ArrayList" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
+<%@ page import="jakarta.servlet.http.Cookie" %>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,6 +42,38 @@
     <div class="recent-games-wrapper">
         <c:if test="${user != null}">
             <c:if test="${userGames.size() > 0}">
+                <div>
+                    <h2>Último Jogo Cadastrado</h2>
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        if (cookies != null) {
+                            String name = "";
+                            String price = "";
+                            String views = "";
+
+                            for (Cookie c : cookies) {
+                                if ("name".equals(c.getName())) {
+                                    name = c.getValue();
+                                    break;
+                                } else if ("price".equals(c.getName())) {
+                                    price = c.getValue();
+                                    break;
+                                } else if ("views".equals(c.getName())) {
+                                    views = c.getValue();
+                                    break;
+                                }
+                            }
+                            out.println("<h3>Nome: " + name + "</h3>");
+                            out.println("<h3>Preco: " + price + "</h3>");
+                            out.println("<h3>Views: " + views + "</h3>");
+                        }
+                    %>
+                </div>
+            </c:if>
+        </c:if>
+        
+        <c:if test="${user != null}">
+            <c:if test="${userGames.size() > 0}">
                 <h3>Seus Jogos: </h3>
                 <div class="games-wrapper">
 
@@ -69,6 +102,9 @@
                 </div>
             </c:if>
         </c:if>
+
+
+
 
         <c:if test="${allGames.size() > 0}">
         <h3>Todos os Jogos: </h3>

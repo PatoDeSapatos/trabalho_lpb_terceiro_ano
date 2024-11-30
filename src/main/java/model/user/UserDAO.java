@@ -46,6 +46,26 @@ public class UserDAO extends DAO {
 		}
 	}
 
+	public void edit(int id, String name, String cpf, String phoneNumber) {
+		EntityManager em = emf.createEntityManager();
+
+		try {
+			UserVO user = em.find(UserVO.class, id);
+			user.setName(name);
+			user.setCpf(cpf);
+			user.setPhoneNumber(phoneNumber);
+			em.getTransaction().begin();
+			em.merge(user);
+			em.getTransaction().commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			em.close();
+		}
+	}
+
     public UserVO getUserByLogin(String login) {
 		EntityManager em = emf.createEntityManager();
 		

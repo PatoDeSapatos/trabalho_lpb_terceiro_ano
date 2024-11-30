@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -131,6 +132,18 @@ public class GameController extends HttpServlet {
 
 		GameVO game = new GameVO(0, user, name, iconLink, bannerLink, discount, price, discount, discount, rating);
 
+		Cookie cName = new Cookie("name", name);
+		Cookie cPrice = new Cookie("price", String.valueOf(price));
+		Cookie cViews = new Cookie("views", String.valueOf(game.getViews()));
+
+		cName.setMaxAge(60*60*24*365);
+		cPrice.setMaxAge(60*60*24*365);
+		cViews.setMaxAge(60*60*24*365);
+
+		resp.addCookie(cName);
+		resp.addCookie(cPrice);
+		resp.addCookie(cViews);
+		
 		boolean resultado = dao.save(game);
 
 		req.setAttribute("result", resultado);

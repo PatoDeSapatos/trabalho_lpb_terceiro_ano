@@ -54,16 +54,20 @@ public class UserController extends HttpServlet {
             
             switch(operation) {
                 case "register":
-                register(req, resp);
-                break;
+                    register(req, resp);
+                    break;
                 
                 case "login":
-                login(req, resp);
-                break;
+                    login(req, resp);
+                    break;
+                    
+                case "edit":
+                    edit(req, resp);
+                    break;
                 
                 default:
-                System.out.println("PErro: Operação não encontrada: " + operation);
-                break;
+                    System.out.println("PErro: Operação não encontrada: " + operation);
+                    break;
         }
     }
 
@@ -112,10 +116,18 @@ public class UserController extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        UserVO user = (UserVO) session.getAttribute("login");
+        dao.edit(user.getId(), req.getParameter("name"), req.getParameter("cpf"), req.getParameter("phoneNumber"));
+        session.setAttribute("login", user);
+        req.getRequestDispatcher("./index.html");
+    }
+
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.invalidate();
-        req.getRequestDispatcher("teste.html").forward(req, resp);
+        req.getRequestDispatcher("./index.html").forward(req, resp);
     }
     
 	private void getUserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
